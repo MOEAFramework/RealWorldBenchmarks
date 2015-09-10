@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/MOEAFramework-Proprietary/!svn/ver/19/META-INF/services
+END
+org.moeaframework.core.spi.ProblemProvider
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/MOEAFramework-Proprietary/!svn/ver/19/META-INF/services/org.moeaframework.core.spi.ProblemProvider
+END
+org.moeaframework.core.spi.AlgorithmProvider
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/MOEAFramework-Proprietary/!svn/ver/3/META-INF/services/org.moeaframework.core.spi.AlgorithmProvider
+END
