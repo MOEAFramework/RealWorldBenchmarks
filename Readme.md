@@ -1,39 +1,40 @@
 # Real World Benchmarks #
-## Multiobjective Optimization Problems ##
 
-### General Aviation Aircraft ###
-#### 27 Variables, 10 Objectives, 1 Constraint ####
+### General Aviation Aircraft - 27 Vars, 10 Objs, 1 Constraint ###
 The General Aviation Aircraft (GAA) problem seeks the design of three
-propellar-driven aircraft for general aviation use.  The three planes
+propeller-driven aircraft for general aviation use.  The three planes
 must seat 2, 4, and 6 passengers and satisfy a number of performance
 and economic constraints.  See [1]-[4] for more details.
 
 ##### Decision Variables #####
     Index   Description
-      0     2-seat CSPD
-      1     2-seat AR
-      2     2-seat SWEEP
-      3     2-seat DPROP
-      4     2-seat AF
-      5     2-seat SEATW
-      6     2-seat ELODT
-      7     2-seat TAPER
-      8     4-seat CSPD
-      9     4-seat AR
-     10     4-seat SWEEP
-     11     4-seat DPROP
-     12     4-seat AF
-     13     4-seat SEATW
-     14     4-seat ELODT
-     15     4-seat TAPER
-     16     6-seat CSPD
-     17     6-seat AR
-     18     6-seat SWEEP
-     19     6-seat DPROP
-     20     6-seat AF
-     21     6-seat SEATW
-     22     6-seat ELODT
-     23     6-seat TAPER
+      0     2-seat Cruise Speed
+      1     2-seat Aspect Ratio
+      2     2-seat Sweep Angle
+      3     2-seat Propeller Diameter
+      4     2-seat Wing Loading
+      5     2-seat Engine Activity Factor
+      6     2-seat Seat Width
+      7     2-seat Tail Length/Diameter Ratio
+      8     2-seat Taper Ratio
+      9     4-seat Cruise Speed
+     10     4-seat Aspect Ratio
+     11     4-seat Sweep Angle
+     12     4-seat Propeller Diameter
+     13     4-seat Wing Loading
+     14     4-seat Engine Activity Factor
+     15     4-seat Seat Width
+     16     4-seat Tail Length/Diameter Ratio
+     17     4-seat Taper Ratio
+     18     6-seat Cruise Speed
+     19     6-seat Aspect Ratio
+     20     6-seat Sweep Angle
+     21     6-seat Propeller Diameter
+     22     6-seat Wing Loading
+     23     6-seat Engine Activity Factor
+     24     6-seat Seat Width
+     25     6-seat Tail Length/Diameter Ratio
+     26     6-seat Taper Ratio
 
 ##### Objectives #####
     Index   Description
@@ -50,7 +51,6 @@ and economic constraints.  See [1]-[4] for more details.
       
 The * marks objectives that are maximized.  The values of maximized objectives
 are negated for optimization and must be corrected in all output files.
-
 
 ### References ###
 1. T. W. Simpson, W. Chen, J. K. Allen, and F. Mistree (1996),
