@@ -52,6 +52,9 @@ and economic constraints.  See [1]-[4] for more details.
 The * marks objectives that are maximized.  The values of maximized objectives
 are negated for optimization and must be corrected in all output files.
 
+Implementations in C and Python are available at
+https://github.com/matthewjwoodruff/generalaviation.
+
 ### References ###
 1. T. W. Simpson, W. Chen, J. K. Allen, and F. Mistree (1996),
    "Conceptual design of a family of products through the use of
