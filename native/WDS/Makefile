@@ -1,0 +1,18 @@
+CC = gcc
+SRC_DIR = src
+SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)models.c $(SRC_DIR)moeaframework.c
+C_FLAGS = -I$(SRC_DIR)/epanet2 -L$(SRC_DIR)/epanet2 -lepanet2
+
+all:
+	$(CC) -o bin/TRN -DTRN $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/TLN -DTLN $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/BAK -DBAK $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/NYT -DNYT $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/BLA -DBLA $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/HAN -DHAN $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/GOY -DGOY $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/FOS -DFOS $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/PES -DPES $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/MOD -DMOD $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/BIN -DBIN $(SOURCE) $(C_FLAGS)
+	$(CC) -o bin/EXN -DEXN $(SOURCE) $(C_FLAGS)
