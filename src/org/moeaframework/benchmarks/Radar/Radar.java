@@ -9,47 +9,45 @@ import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
+import org.moeaframework.util.io.RedirectStream;
 
 public class Radar extends ExternalProblem {
-	
+
 	public static final String PATH = "./native/Radar/bin/";
-	
-	private final String port;
-	
-	private Process matlabProcess;
 
 	public Radar() throws IOException {
-		this(Integer.toString(PRNG.nextInt(10000, 65536)));
+		super((String)null, startProcess());
 	}
-	
-	Radar(String port) throws IOException {
-		super(null, port);
-		this.port = port;
-		
+
+	public static int startProcess() throws IOException {
+		int port = PRNG.nextInt(10000, 65536);
+		String command = SystemUtils.IS_OS_WINDOWS ?
+				"matlab.exe" :
+				"/usr/global/matlab/R2013a/bin/matlab";
+
 		validate();
-		matlabProcess = createProcess().start();
-		
+
+		Process process = new ProcessBuilder()
+				.command(command, "-r", "startEval(8,9,0,'radar','" + port + "')")
+				.directory(new File(PATH))
+				.start();
+
+		RedirectStream.redirect(process.getInputStream(), System.out);
+		RedirectStream.redirect(process.getErrorStream(), System.err);
+
 		try {
 			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			// do nothing
 		}
+
+		return port;
 	}
-	
-	public void validate() {
+
+	public static void validate() {
 		if (!new File(PATH, "testpris.p").exists()) {
 			throw new FrameworkException("testpris.p missing, see installation instructions");
 		}
-	}
-	
-	public ProcessBuilder createProcess() {
-		String command = SystemUtils.IS_OS_WINDOWS ?
-				"matlab.exe" :
-				"matlab";
-		
-		return new ProcessBuilder()
-				.command(command, "-r", "startEval(8, 9, 0, 'radar', '" + port + "')")
-				.directory(new File(PATH));
 	}
 
 	@Override
@@ -75,21 +73,12 @@ public class Radar extends ExternalProblem {
 	@Override
 	public Solution newSolution() {
 		Solution solution = new Solution(8, 9, 0);
-		
+
 		for (int i = 0; i < 8; i++) {
 			solution.setVariable(i, new RealVariable(0.0, 1.0));
 		}
-		
-		return solution;
-	}
 
-	@Override
-	public synchronized void close() {
-		if (matlabProcess != null) {
-			matlabProcess.destroy();
-		}
-		
-		super.close();
+		return solution;
 	}
 
 }
