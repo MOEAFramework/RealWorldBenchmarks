@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
@@ -25,12 +26,19 @@ public class Radar extends ExternalProblem {
 		super(null, port);
 		this.port = port;
 		
+		validate();
 		matlabProcess = createProcess().start();
 		
 		try {
 			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			// do nothing
+		}
+	}
+	
+	public void validate() {
+		if (!new File(PATH, "testpris.p").exists()) {
+			throw new FrameworkException("testpris.p missing, see installation instructions");
 		}
 	}
 	

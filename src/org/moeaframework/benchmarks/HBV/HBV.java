@@ -39,10 +39,10 @@ public class HBV extends ExternalProblem2 {
 	public static ProcessBuilder createProcess() {
 		String command = SystemUtils.IS_OS_WINDOWS ?
 				"hbv.exe" :
-				"hbv";
+				"./hbv";
 		
 		return new ProcessBuilder()
-				.command(PATH + command)
+				.command(command)
 				.directory(new File(PATH));
 	}
 

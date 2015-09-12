@@ -9,11 +9,11 @@ import org.moeaframework.benchmarks.GAA.GAA;
 import org.moeaframework.benchmarks.HBV.HBV;
 import org.moeaframework.benchmarks.WDS.WDS;
 import org.moeaframework.benchmarks.WDS.WDSInstance;
+import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.PopulationIO;
 import org.moeaframework.core.Problem;
 import org.moeaframework.core.spi.ProblemProvider;
-import org.moeaframework.core.spi.ProviderNotFoundException;
 
 public class BenchmarkProvider extends ProblemProvider {
 
@@ -25,7 +25,7 @@ public class BenchmarkProvider extends ProblemProvider {
 			try {
 				return new HBV();
 			} catch (IOException e) {
-				throw new ProviderNotFoundException(
+				throw new FrameworkException(
 						"unable to run HBV executable", e);
 			}
 		} else if (problemName.startsWith("WDS(") &&
@@ -35,10 +35,10 @@ public class BenchmarkProvider extends ProblemProvider {
 			try {
 				return new WDS(WDSInstance.valueOf(variant.toUpperCase()));
 			} catch (IllegalArgumentException e) {
-				throw new ProviderNotFoundException(
+				throw new FrameworkException(
 						"no WDS instance found with name " + variant, e);
 			} catch (IOException e) {
-				throw new ProviderNotFoundException(
+				throw new FrameworkException(
 						"unable to run WDS executable", e);
 			}
 		} else {

@@ -1,5 +1,23 @@
 # Real World Benchmarks #
 
+### Available Benchmarks ###
+* **General Aviation Aircraft (GAA)** - 27 Vars, 10 Objs, 1 Constr
+* **HBV Rainfall-Runoff Model Calibration (HBV)** - 14 Vars, 4 Objs
+* **Radar Waveform Optimization** - 8 Vars, 9 Objs
+* **Water Distribution System Design**
+  * **Two-reservior Network (TRN)** - 8 Vars, 2 Objs, 1 Constr
+  * **Two-loop Network (TLN)** - 8 Vars, 2 Objs, 1 Constr
+  * **BakRyan Network (BAK)** - 9 Vars, 2 Objs, 1 Constr
+  * **New York Tunnel Network (NYT)** - 21 Vars, 2 Objs, 1 Constr
+  * **Blacksburg Network (BLA)** - 23 Vars, 2 Objs, 1 Constr
+  * **Hanoi Network (HAN)** - 34 Vars, 2 Objs, 1 Constr
+  * **GoYang Network (GOY)** - 30 Vars, 2 Objs, 1 Constr
+  * **Fossolo Network (FOS)** - 58 Vars, 2 Objs, 1 Constr
+  * **Pescara Network (PES)** - 99 Vars, 2 Objs, 1 Constr
+  * **Modena Network (MOD)** - 317 Vars, 2 Objs, 1 Constr
+  * **Belerma Irrigation Network (BIN)** - 454 Vars, 2 Objs, 1 Constr
+  * **Exeter Network (EXN)** - 567 Vars, 2 Objs, 1 Constr
+
 ### General Aviation Aircraft - 27 Vars, 10 Objs, 1 Constraint ###
 The General Aviation Aircraft (GAA) problem seeks the design of three
 propeller-driven aircraft for general aviation use.  The three planes

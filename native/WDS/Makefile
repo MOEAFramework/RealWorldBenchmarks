@@ -1,9 +1,10 @@
 CC = gcc
 SRC_DIR = src
-SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)models.c $(SRC_DIR)moeaframework.c
-C_FLAGS = -I$(SRC_DIR)/epanet2 -L$(SRC_DIR)/epanet2 -lepanet2
+SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)/models.c $(SRC_DIR)/moeaframework.c
+C_FLAGS = -I$(SRC_DIR)/epanet2 -Lbin -lepanet2 -Wl,-R,\.
 
 all:
+	$(MAKE) -C $(SRC_DIR)/epanet2
 	$(CC) -o bin/TRN -DTRN $(SOURCE) $(C_FLAGS)
 	$(CC) -o bin/TLN -DTLN $(SOURCE) $(C_FLAGS)
 	$(CC) -o bin/BAK -DBAK $(SOURCE) $(C_FLAGS)

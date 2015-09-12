@@ -26,10 +26,10 @@ public class WDS extends ExternalProblem2 {
 	public static ProcessBuilder createProcess(WDSInstance instance) {
 		String command = SystemUtils.IS_OS_WINDOWS ?
 				instance.getName() + ".exe" :
-				instance.getName();
+				"./" + instance.getName();
 		
 		return new ProcessBuilder()
-				.command(PATH + command)
+				.command(command)
 				.directory(new File(PATH));
 	}
 
@@ -59,7 +59,7 @@ public class WDS extends ExternalProblem2 {
 		
 		for (int i = 0; i < instance.getNumberOfVariables(); i++) {
 			solution.setVariable(i, EncodingUtils.newInt(0,
-					instance.getNumberOfOptions()));
+					instance.getNumberOfOptions()-1));
 		}
 		
 		return solution;
