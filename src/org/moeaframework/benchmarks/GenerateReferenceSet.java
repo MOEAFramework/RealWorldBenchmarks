@@ -8,7 +8,7 @@ import org.moeaframework.benchmarks.HBV.HBV;
 import org.moeaframework.core.EpsilonBoxDominanceArchive;
 import org.moeaframework.core.PopulationIO;
 
-public class Test {
+public class GenerateReferenceSet {
 	
 	public static void main(String[] args) throws IOException {
 		String[] algorithms = new String[] {
