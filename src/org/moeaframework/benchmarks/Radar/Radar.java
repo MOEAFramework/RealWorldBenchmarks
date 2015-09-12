@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.PRNG;
+import org.moeaframework.core.Settings;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
@@ -21,9 +22,11 @@ public class Radar extends ExternalProblem {
 
 	public static int startProcess() throws IOException {
 		int port = PRNG.nextInt(10000, 65536);
-		String command = SystemUtils.IS_OS_WINDOWS ?
-				"matlab.exe" :
-				"/usr/global/matlab/R2013a/bin/matlab";
+		String command = Settings.PROPERTIES.contains("matlab.path") ?
+				Settings.PROPERTIES.getString("matlab.path", "matlab") :
+					SystemUtils.IS_OS_WINDOWS ?
+							"matlab.exe" :
+							"matlab";
 
 		validate();
 
