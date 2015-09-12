@@ -8,40 +8,46 @@ import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
+import org.moeaframework.util.io.RedirectStream;
 
 public class Radar extends ExternalProblem {
 	
 	public static final String PATH = "./native/Radar/bin/";
 	
-	private final String port;
-	
-	private Process matlabProcess;
-
 	public Radar() throws IOException {
-		this(Integer.toString(PRNG.nextInt(10000, 65536)));
+		super((String)null, startProcess());
 	}
 	
-	Radar(String port) throws IOException {
-		super(null, port);
-		this.port = port;
-		
-		matlabProcess = createProcess().start();
-		
+	public static int startProcess() throws IOException {
+		int port = PRNG.nextInt(10000, 65536);
+		String command = SystemUtils.IS_OS_WINDOWS ?
+				"matlab.exe" :
+				"/usr/global/matlab/R2013a/bin/matlab";
+	
+		 Process process = new ProcessBuilder()
+				.command(command, "-r", "startEval(8,9,0,'radar','" + port + "')")
+				.directory(new File(PATH))
+				.start();
+/*
+		Process process = Runtime.getRuntime().exec(
+			new String[] {
+				"/usr/global/matlab/R2013a/bin/matlab",
+				"-r",
+				"startEval(8,9,0,'radar','" + port + "')" },
+			null,
+			new File(PATH));
+*/
+
+		RedirectStream.redirect(process.getInputStream(), System.out);
+		RedirectStream.redirect(process.getErrorStream(), System.err);
+
 		try {
 			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			// do nothing
 		}
-	}
-	
-	public ProcessBuilder createProcess() {
-		String command = SystemUtils.IS_OS_WINDOWS ?
-				"matlab.exe" :
-				"matlab";
-		
-		return new ProcessBuilder()
-				.command(command, "-r", "startEval(8, 9, 0, 'radar', '" + port + "')")
-				.directory(new File(PATH));
+
+		return port;
 	}
 
 	@Override
@@ -73,15 +79,6 @@ public class Radar extends ExternalProblem {
 		}
 		
 		return solution;
-	}
-
-	@Override
-	public synchronized void close() {
-		if (matlabProcess != null) {
-			matlabProcess.destroy();
-		}
-		
-		super.close();
 	}
 
 }
