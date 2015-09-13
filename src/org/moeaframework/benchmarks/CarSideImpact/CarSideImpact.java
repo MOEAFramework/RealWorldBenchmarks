@@ -1,4 +1,4 @@
-package org.moeaframework.benchmarks;
+package org.moeaframework.benchmarks.CarSideImpact;
 
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.EncodingUtils;

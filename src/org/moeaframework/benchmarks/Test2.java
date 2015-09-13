@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.moeaframework.Analyzer;
 import org.moeaframework.Executor;
+import org.moeaframework.benchmarks.CarSideImpact.CarSideImpact;
 import org.moeaframework.benchmarks.WDS.WDSInstance;
 import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.Solution;

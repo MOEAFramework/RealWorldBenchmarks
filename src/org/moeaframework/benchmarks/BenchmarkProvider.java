@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.moeaframework.benchmarks.CarSideImpact.CarSideImpact;
 import org.moeaframework.benchmarks.GAA.GAA;
 import org.moeaframework.benchmarks.HBV.HBV;
 import org.moeaframework.benchmarks.WDS.WDS;
@@ -50,34 +51,14 @@ public class BenchmarkProvider extends ProblemProvider {
 
 	@Override
 	public NondominatedPopulation getReferenceSet(String problemName) {
+		InputStream stream = null;
+		
 		if (problemName.equalsIgnoreCase("GAA")) {
-			InputStream stream = GAA.class.getResourceAsStream("GAA.reference");
-				
-			if (stream == null) {
-				return null;
-			} else {
-				try {
-					return new NondominatedPopulation(
-							PopulationIO.readObjectives(new BufferedReader(
-									new InputStreamReader(stream))));
-				} catch (IOException e) {
-					return null;
-				}
-			}
+			stream = GAA.class.getResourceAsStream("GAA.reference");
+		} else if (problemName.equalsIgnoreCase("CarSideImpact")) {
+			stream = CarSideImpact.class.getResourceAsStream("CarSideImpact.reference");
 		} else if (problemName.equalsIgnoreCase("HBV")) {
-			InputStream stream = HBV.class.getResourceAsStream("HBV.reference");
-			
-			if (stream == null) {
-				return null;
-			} else {
-				try {
-					return new NondominatedPopulation(
-							PopulationIO.readObjectives(new BufferedReader(
-									new InputStreamReader(stream))));
-				} catch (IOException e) {
-					return null;
-				}
-			}
+			stream = HBV.class.getResourceAsStream("HBV.reference");
 		} else if (problemName.startsWith("WDS(") &&
 				problemName.endsWith(")")) {
 			String variant = problemName.substring(4, problemName.length()-1);
@@ -85,21 +66,31 @@ public class BenchmarkProvider extends ProblemProvider {
 			try {
 				WDSInstance instance = WDSInstance.valueOf(
 						variant.toUpperCase());
-				InputStream stream = WDS.class.getResourceAsStream(
+				stream = WDS.class.getResourceAsStream(
 						instance.getName() + ".reference");
-				
-				try {
-					return new NondominatedPopulation(
-							PopulationIO.readObjectives(new BufferedReader(
-									new InputStreamReader(stream))));
-				} catch (IOException e) {
-					return null;
-				}
 			} catch (IllegalArgumentException e) {
-				return null;
+				stream = null;
 			}
 		} else {
 			return null;
+		}
+		
+		if (stream == null) {
+			return null;
+		} else {
+			try {
+				return new NondominatedPopulation(
+						PopulationIO.readObjectives(new BufferedReader(
+								new InputStreamReader(stream))));
+			} catch (IOException e) {
+				return null;
+			} finally {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					// ignore
+				}
+			}
 		}
 	}
 

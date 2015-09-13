@@ -16,7 +16,7 @@ public class GenerateReferenceSet {
 				"NSGAIII",
 				"eMOEA",
 				"GDE3",
-				"IBEA",
+				//"IBEA",
 				"MOEAD",
 				"OMOPSO",
 				"PAES",
