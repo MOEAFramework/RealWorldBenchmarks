@@ -21,6 +21,8 @@ public class BenchmarkProvider extends ProblemProvider {
 	public Problem getProblem(String problemName) {
 		if (problemName.equalsIgnoreCase("GAA")) {
 			return new GAA();
+		} else if (problemName.equalsIgnoreCase("CarSideImpact")) {
+			return new CarSideImpact();
 		} else if (problemName.equalsIgnoreCase("HBV")) {
 			try {
 				return new HBV();

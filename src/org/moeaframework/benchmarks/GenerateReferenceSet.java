@@ -25,8 +25,8 @@ public class GenerateReferenceSet {
 				"SPEA2"
 		};
 		
-		String problem = "HBV";
-		double[] epsilon = HBV.EPSILON;
+		String problem = "CarSideImpact";
+		double[] epsilon = new double[] { 0.95, 0.02, 0.0875 };
 		
 		EpsilonBoxDominanceArchive referenceSet =
 				new EpsilonBoxDominanceArchive(epsilon);
@@ -40,7 +40,7 @@ public class GenerateReferenceSet {
 				referenceSet.addAll(new Executor()
 						.withProblem(problem)
 						.withAlgorithm(algorithm)
-						.withMaxEvaluations(100000)
+						.withMaxEvaluations(500000)
 						.withEpsilon(epsilon)
 						.run());
 				
