@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.moeaframework.benchmarks.CarSideImpact.CarSideImpact;
+import org.moeaframework.benchmarks.ElectricMotor.ElectricMotor;
 import org.moeaframework.benchmarks.GAA.GAA;
 import org.moeaframework.benchmarks.HBV.HBV;
 import org.moeaframework.benchmarks.WDS.WDS;
@@ -24,6 +25,8 @@ public class BenchmarkProvider extends ProblemProvider {
 			return new GAA();
 		} else if (problemName.equalsIgnoreCase("CarSideImpact")) {
 			return new CarSideImpact();
+		} else if (problemName.equalsIgnoreCase("ElectricMotor")) {
+			return new ElectricMotor();
 		} else if (problemName.equalsIgnoreCase("HBV")) {
 			try {
 				return new HBV();

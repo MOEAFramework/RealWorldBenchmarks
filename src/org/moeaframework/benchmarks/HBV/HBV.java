@@ -38,7 +38,7 @@ public class HBV extends ExternalProblem2 {
 	
 	public static ProcessBuilder createProcess() {
 		String command = SystemUtils.IS_OS_WINDOWS ?
-				"hbv.exe" :
+				PATH + "hbv.exe" :
 				"./hbv";
 		
 		return new ProcessBuilder()

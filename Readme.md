@@ -17,6 +17,7 @@
   * **Modena Network (MOD)** - 317 Vars, 2 Objs, 1 Constr
   * **Belerma Irrigation Network (BIN)** - 454 Vars, 2 Objs, 1 Constr
   * **Exeter Network (EXN)** - 567 Vars, 2 Objs, 1 Constr
+* **Car Side Impact** - 7 Vars, 3 Objs, 10 Constrs 
 
 ### General Aviation Aircraft - 27 Vars, 10 Objs, 1 Constraint ###
 The General Aviation Aircraft (GAA) problem seeks the design of three

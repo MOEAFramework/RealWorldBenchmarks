@@ -25,7 +25,7 @@ public class WDS extends ExternalProblem2 {
 	
 	public static ProcessBuilder createProcess(WDSInstance instance) {
 		String command = SystemUtils.IS_OS_WINDOWS ?
-				instance.getName() + ".exe" :
+				PATH + instance.getName() + ".exe" :
 				"./" + instance.getName();
 		
 		return new ProcessBuilder()

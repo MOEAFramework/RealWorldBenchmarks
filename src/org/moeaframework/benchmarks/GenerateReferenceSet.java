@@ -19,14 +19,14 @@ public class GenerateReferenceSet {
 				//"IBEA",
 				"MOEAD",
 				"OMOPSO",
-				"PAES",
-				"PESA2",
+				//"PAES",
+				//"PESA2",
 				"SMPSO",
 				"SPEA2"
 		};
 		
-		String problem = "CarSideImpact";
-		double[] epsilon = new double[] { 0.95, 0.02, 0.0875 };
+		String problem = "ElectricMotor";
+		double[] epsilon = new double[] { 0.001 };
 		
 		EpsilonBoxDominanceArchive referenceSet =
 				new EpsilonBoxDominanceArchive(epsilon);
