@@ -9,6 +9,7 @@ import org.moeaframework.benchmarks.CarSideImpact.CarSideImpact;
 import org.moeaframework.benchmarks.ElectricMotor.ElectricMotor;
 import org.moeaframework.benchmarks.GAA.GAA;
 import org.moeaframework.benchmarks.HBV.HBV;
+import org.moeaframework.benchmarks.LRGV.LRGV;
 import org.moeaframework.benchmarks.WDS.WDS;
 import org.moeaframework.benchmarks.WDS.WDSInstance;
 import org.moeaframework.core.FrameworkException;
@@ -33,6 +34,13 @@ public class BenchmarkProvider extends ProblemProvider {
 			} catch (IOException e) {
 				throw new FrameworkException(
 						"unable to run HBV executable", e);
+			}
+		} else if (problemName.equalsIgnoreCase("LRGV")) {
+			try {
+				return new LRGV();
+			} catch (IOException e) {
+				throw new FrameworkException(
+						"unable to run LRGV executable", e);
 			}
 		} else if (problemName.startsWith("WDS(") &&
 				problemName.endsWith(")")) {

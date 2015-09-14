@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.moeaframework.Executor;
 import org.moeaframework.benchmarks.HBV.HBV;
+import org.moeaframework.benchmarks.LRGV.LRGV;
 import org.moeaframework.core.EpsilonBoxDominanceArchive;
 import org.moeaframework.core.PopulationIO;
 
@@ -25,8 +26,8 @@ public class GenerateReferenceSet {
 				"SPEA2"
 		};
 		
-		String problem = "ElectricMotor";
-		double[] epsilon = new double[] { 0.001 };
+		String problem = "LRGV";
+		double[] epsilon = LRGV.EPSILON;
 		
 		EpsilonBoxDominanceArchive referenceSet =
 				new EpsilonBoxDominanceArchive(epsilon);
