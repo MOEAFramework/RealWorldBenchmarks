@@ -10,6 +10,7 @@ import org.moeaframework.benchmarks.ElectricMotor.ElectricMotor;
 import org.moeaframework.benchmarks.GAA.GAA;
 import org.moeaframework.benchmarks.HBV.HBV;
 import org.moeaframework.benchmarks.LRGV.LRGV;
+import org.moeaframework.benchmarks.LakeProblem.LakeProblem;
 import org.moeaframework.benchmarks.WDS.WDS;
 import org.moeaframework.benchmarks.WDS.WDSInstance;
 import org.moeaframework.core.FrameworkException;
@@ -42,6 +43,13 @@ public class BenchmarkProvider extends ProblemProvider {
 				throw new FrameworkException(
 						"unable to run LRGV executable", e);
 			}
+		} else if (problemName.equalsIgnoreCase("LakeProblem")) {
+			try {
+				return new LakeProblem();
+			} catch (IOException e) {
+				throw new FrameworkException(
+						"unable to run LakeProblem executable", e);
+			}
 		} else if (problemName.startsWith("WDS(") &&
 				problemName.endsWith(")")) {
 			String variant = problemName.substring(4, problemName.length()-1);
@@ -68,8 +76,12 @@ public class BenchmarkProvider extends ProblemProvider {
 			stream = GAA.class.getResourceAsStream("GAA.reference");
 		} else if (problemName.equalsIgnoreCase("CarSideImpact")) {
 			stream = CarSideImpact.class.getResourceAsStream("CarSideImpact.reference");
+		} else if (problemName.equalsIgnoreCase("ElectricMotor")) {
+			stream = ElectricMotor.class.getResourceAsStream("ElectricMotor.reference");
 		} else if (problemName.equalsIgnoreCase("HBV")) {
 			stream = HBV.class.getResourceAsStream("HBV.reference");
+		} else if (problemName.equalsIgnoreCase("LakeProblem")) {
+			stream = LakeProblem.class.getResourceAsStream("LakeProblem.reference");
 		} else if (problemName.startsWith("WDS(") &&
 				problemName.endsWith(")")) {
 			String variant = problemName.substring(4, problemName.length()-1);

@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.moeaframework.Executor;
 import org.moeaframework.benchmarks.HBV.HBV;
 import org.moeaframework.benchmarks.LRGV.LRGV;
+import org.moeaframework.benchmarks.LakeProblem.LakeProblem;
 import org.moeaframework.core.EpsilonBoxDominanceArchive;
 import org.moeaframework.core.PopulationIO;
 
@@ -26,8 +27,8 @@ public class GenerateReferenceSet {
 				"SPEA2"
 		};
 		
-		String problem = "LRGV";
-		double[] epsilon = LRGV.EPSILON;
+		String problem = "LakeProblem";
+		double[] epsilon = LakeProblem.EPSILON;
 		
 		EpsilonBoxDominanceArchive referenceSet =
 				new EpsilonBoxDominanceArchive(epsilon);
@@ -41,7 +42,7 @@ public class GenerateReferenceSet {
 				referenceSet.addAll(new Executor()
 						.withProblem(problem)
 						.withAlgorithm(algorithm)
-						.withMaxEvaluations(500000)
+						.withMaxEvaluations(100000)
 						.withEpsilon(epsilon)
 						.run());
 				
