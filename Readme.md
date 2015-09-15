@@ -16,7 +16,8 @@ The following benchmark problems are available.
 | Water Supply Portfolio Planning (LRGV)      | 8         | 5          | 4           | [5], [8]   |
 | Lake Pollution Control Policy               | 100       | 4          | 1           | [9]-[11]   |
 
-In addition, this repository contains a number of water distribution system (WDS) design problems [12]:
+In addition, this repository contains twelve bi-objective water distribution system (WDS) design problems [12]
+ranging from 8 to 567 decision variables:
 
 | Problem                          | Variables | Objectives | Constraints |
 | -------------------------------- | :-------: | :--------: | :---------: |
@@ -32,6 +33,9 @@ In addition, this repository contains a number of water distribution system (WDS
 | Modena Network (MOD)             | 317       | 2          | 1           |
 | Belerma Irrigation Network (BIN) | 454       | 2          | 1           |
 | Exeter Network (EXN)             | 567       | 2          | 1           |
+
+Additional information for specific problems can be found in the cited papers as well as
+the README files and other documentation for each problem.
 
 ### License ###
 
