@@ -15,8 +15,9 @@ The following benchmark problems are available.
 | Car Side Impact                             | 7         | 3          | 10          | [7]        |
 | Water Supply Portfolio Planning (LRGV)      | 8         | 5          | 4           | [5], [8]   |
 | Lake Pollution Control Policy               | 100       | 4          | 1           | [9]-[11]   |
+| Electric Motor Product Family               | 80        | 20         | 60          | [12]       |
 
-In addition, this repository contains twelve bi-objective water distribution system (WDS) design problems [12]
+In addition, this repository contains twelve bi-objective water distribution system (WDS) design problems [13]
 ranging from 8 to 567 decision variables:
 
 | Problem                          | Variables | Objectives | Constraints |
@@ -102,7 +103,10 @@ executables for Windows users.  Linux users should ensure basic build tools are 
     lakes subject to potentially irreversible change." Ecological Applications 9:751-771.
     ([Link](http://www.jstor.org/stable/2641327))
 
-12. Q. Wang, M. Guidolin, D. Savic, and Z. Kapelan (2015). "Two-Objective Design of
+12. T. W. Simpson, J. R. A. Maier, and F. Mistree (2001).  "Product platform
+    design: method and application."  Res Eng Design, 13:2-22.
+
+13. Q. Wang, M. Guidolin, D. Savic, and Z. Kapelan (2015). "Two-Objective Design of
     Benchmark Problems of a Water Distribution System via MOEAs: Towards the
     Best-Known Approximation of the True Pareto Front." Journal of Water Resources
     Planning and Management, 141(3), 04014060.
