@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="lib/jcommon-1.0.20.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.15.jar"/>
 	<classpathentry kind="lib" path="lib/JMetal-4.3.jar"/>
-	<classpathentry kind="lib" path="lib/MOEAFramework-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/rsyntaxtextarea.jar"/>
+	<classpathentry kind="lib" path="lib/MOEAFramework-2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
