@@ -8,7 +8,7 @@ import org.moeaframework.core.spi.ProblemFactory;
 
 /**
  * Tests to ensure each benchmark problem can be instantiated with the MOEA
- * Framework.
+ * Framework and reference sets exist.
  */
 public class BenchmarkProviderTest {
 	
@@ -16,6 +16,7 @@ public class BenchmarkProviderTest {
 		new Executor()
 				.withAlgorithm("NSGAII")
 				.withProblem(problemName)
+				.withMaxEvaluations(1000)
 				.run();
 
 		Assert.assertNotNull(
