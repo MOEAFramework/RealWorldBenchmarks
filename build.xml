@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<!--
+Copyright 2009-2015 David Hadka
+
+This file is part of the MOEA Framework.
+
+The MOEA Framework is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or (at your 
+option) any later version.
+
+The MOEA Framework is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public 
+License for more details.
+
+You should have received a copy of the GNU Lesser General Public License 
+along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+Use of these build scripts requires Apache Ant to be installed.  See
+<http://ant.apache.org/> for instructions on installing Apache Ant.
+-->
+<project name="MOEA Framework - Real World Benchmarks" basedir=".">
+
+	<!-- Loads properties from properties file and environment -->
+	<property file="META-INF/build.properties" />
+	<property environment="env" />
+	
+	<!-- Path to Java JDK source code (optional for inheriting javadoc comments) -->
+	<property name="jdk.source" value="../OpenJDK${java.major}/jdk/src/share/classes" />
+	
+	<!-- URL to Java API -->
+	<property name="jdk.api" value="http://download.oracle.com/javase/${java.major}/docs/api/" />
+	
+	<!-- The working folder for these Ant build targets -->
+	<property name="build" value="build" />
+	
+	<!-- The folder where compiled files ready for distribution are saved -->
+	<property name="dist" value="dist" />
+	
+	<!-- The folder where generated javadoc files are saved -->
+	<property name="javadoc" value="javadoc" />
+	
+	<!-- The folder where maven artifacts are saved -->
+	<property name="maven" value="maven" />
+	
+	<!-- The base/root folder for organizing distributions -->
+	<property name="base" value="${build}/${shortname}-${version}" />
+
+	<!-- Classpath of third-party libraries used by the MOEA Framework -->
+	<path id="classpath">
+		<fileset dir="lib" includes="*.jar" />
+	</path>
+
+	<!-- List of files required in every distribution -->
+	<path id="requiredfiles">
+		<fileset file="README.md" />
+		<fileset file="LICENSE" />
+	</path>
+
+	<!-- Generates the Javadoc webpages -->
+	<target name="build-javadoc">
+		<delete dir="${javadoc}" />
+		<mkdir dir="${javadoc}" />
+		
+		<javadoc sourcepath="src;${jdk.source}"
+				destdir="${javadoc}" notree="true"
+				packagenames="org.moeaframework.benchmarks.*"
+				maxmemory="256m" noindex="true" nohelp="true"
+				overview="src/overview.html"
+				windowtitle="${name} ${version} API">
+			<header><![CDATA[${javadoc.title}]]></header>
+			<doctitle><![CDATA[${javadoc.title}]]></doctitle>
+			<footer><![CDATA[${javadoc.title}]]></footer>
+			<bottom><![CDATA[${javadoc.bottom}]]></bottom>
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+			<link href="${jdk.api}" />
+		</javadoc>
+	</target>
+
+	<!-- Builds the JAR file -->
+	<target name="build-binary">
+		<tstamp />
+
+		<delete dir="${build}" />
+		<mkdir dir="${build}" />
+
+		<javac destdir="${build}" srcdir="src" debug="${java.debug}"
+				excludes="**/package-info.java"
+				includeantruntime="false"
+				encoding="UTF-8">
+			<classpath refid="classpath" />
+		</javac>
+
+		<copy todir="${build}/META-INF">
+			<path refid="requiredfiles" />
+		</copy>
+		
+		<exec executable="git" outputproperty="impl.version"
+				errorproperty="impl.error" failifexecutionfails="false">
+			<arg value="rev-parse" />
+			<arg value="--short" />
+			<arg value="HEAD" />
+		</exec>
+		
+		<property name="impl.version" value="Undefined" />
+		
+		<manifest file="${build}/META-INF/MANIFEST.MF">
+			<section name="org/moeaframework/">
+				<attribute name="Specification-Title" value="${name}" />
+				<attribute name="Specification-Version" value="${version}" />
+				<attribute name="Specification-Vendor" value="http://www.moeaframework.org" />
+				<attribute name="Implementation-Title" value="org.moeaframework.benchmarks" />
+				<attribute name="Implementation-Version" value="${impl.version}" />
+				<attribute name="Implementation-Vendor" value="http://www.moeaframework.org" />
+			</section>
+		</manifest>
+
+		<copy todir="${build}">
+			<fileset excludes="**/*.java,overview.html" dir="src" />
+		</copy>
+
+		<jar basedir="${build}" manifest="${build}/META-INF/MANIFEST.MF"
+				jarfile="${dist}/${shortname}-${version}.jar" />
+	</target>
+
+	<!-- Packages the JAR file along with javadocs and required files -->
+	<target name="package-binary" 
+			depends="build-binary, build-javadoc"
+			description="Creates the binary distribution file">
+		<delete dir="${build}" />
+		<mkdir dir="${base}" />
+		<mkdir dir="${base}/lib" />
+
+		<copy todir="${base}">
+			<path refid="requiredfiles" />
+			<fileset file="global.properties" />
+		</copy>
+
+		<copy todir="${base}/lib">
+			<fileset file="${dist}/${shortname}-${version}.jar" />
+			<fileset dir="lib" excludes="junit-*.jar,checkstyle-*.jar" />
+		</copy>
+
+		<copy todir="${base}/javadoc">
+			<fileset dir="${javadoc}" />
+		</copy>
+
+		<tar destfile="${dist}/${shortname}-${version}.tar.gz" 
+				basedir="${build}" compression="gzip" longfile="gnu" />
+	</target>
+
+	<!-- Packages the source code, libraries and required files  -->
+	<target name="package-source" 
+			description="Creates the source code distribution file">
+		<delete dir="${build}" />
+		<mkdir dir="${base}" />
+
+		<copy todir="${base}">
+			<fileset dir=".">
+				<include name="lib/**" />
+				<exclude name="lib/junit-*.jar" />
+				<include name="META-INF/**" />
+				<include name="src/**" />
+				<include name="test/**" />
+				<include name="global.properties" />
+				<include name="build.xml" />
+			</fileset>
+			<path refid="requiredfiles" />
+		</copy>
+
+		<tar destfile="${dist}/${shortname}-${version}-Source.tar.gz" 
+				basedir="${build}" compression="gzip" longfile="gnu" />
+	</target>
+	
+	<!-- GPG Instructions:
+	        gpg -gen-key
+	        gpg -keyserver keyserver.ubuntu.com -send-keys keyid
+	        
+	     After Uploading to Sonatype OSS, test by adding to pom.xml:
+	     
+			<repositories>
+				<repository>
+					<id>oss.sonatype.org</id>
+					<name>OSS Sonatype Staging</name>
+					<url>https://oss.sonatype.org/content/groups/staging</url>
+				</repository>
+			</repositories>
+		
+			<dependencies>
+				<dependency>
+					<groupId>org.moeaframework</groupId>
+					<artifactId>moeaframework.benchmarks</artifactId>
+					<version>${version}</version>
+				</dependency>
+			</dependencies>
+	-->
+	<target name="package-maven" description="Creates an artifact bundle for upload to Sonatype OSS">
+		<delete dir="${maven}" />
+		<mkdir dir="${maven}" />
+		<property name="artifact" value="moeaframework" />
+		
+		<copy file="auxiliary/maven/moeaframework.pom"
+				tofile="${maven}/${artifact}-${version}.pom" />
+		<replace file="${maven}/${artifact}-${version}.pom">
+			<replacefilter token="%VERSION%" value="${version}" />
+		</replace>
+		
+		<antcall target="build-binary" />
+		<unjar src="lib/JMetal-4.3.jar" dest="${build}" />
+		<jar destfile="${maven}/${artifact}-${version}.jar" 
+				basedir="${build}" />
+		
+		<antcall target="package-source" />
+		<jar destfile="${maven}/${artifact}-${version}-sources.jar" 
+				basedir="${build}" />
+		
+		<antcall target="build-javadoc" />
+		<jar destfile="${maven}/${artifact}-${version}-javadoc.jar"
+				basedir="${javadoc}" />
+		
+		<exec executable="gpg" failonerror="true">
+			<arg value="-ab" />
+			<arg value="${maven}/${artifact}-${version}.pom" />
+		</exec>
+		
+		<exec executable="gpg" failonerror="true">
+			<arg value="-ab" />
+			<arg value="${maven}/${artifact}-${version}.jar" />
+		</exec>
+		
+		<exec executable="gpg" failonerror="true">
+			<arg value="-ab" />
+			<arg value="${maven}/${artifact}-${version}-sources.jar" />
+		</exec>
+			
+		<exec executable="gpg" failonerror="true">
+			<arg value="-ab" />
+			<arg value="${maven}/${artifact}-${version}-javadoc.jar" />
+		</exec>
+		
+		<jar destfile="${maven}/${artifact}-${version}-bundle.jar"
+				basedir="${maven}" />
+	</target>
+	
+</project>

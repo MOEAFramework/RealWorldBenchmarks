@@ -1,0 +1,11 @@
+language: java
+
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+
+script:
+  - make
+  - ant -DON_TRAVIS=true -f test.xml

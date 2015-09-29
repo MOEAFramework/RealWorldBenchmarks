@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry including="META-INF/" kind="src" path=""/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/commons-cli-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.8.jar"/>
@@ -12,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/JMetal-4.3.jar"/>
 	<classpathentry kind="lib" path="lib/rsyntaxtextarea.jar"/>
 	<classpathentry kind="lib" path="lib/MOEAFramework-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
