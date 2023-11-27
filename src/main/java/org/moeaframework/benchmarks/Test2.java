@@ -24,14 +24,16 @@ public class Test2 {
 		//display the results
 		//System.out.format("Objective1  Objective2%n");
 		
-		for (Solution solution : result) {
-			if (!solution.violatesConstraints()) {
-				System.out.format("%.4f, %.4f, %.4f,%n",
-						solution.getObjective(0),
-						solution.getObjective(1),
-						solution.getObjective(2));
-			}
-		}
+		result.display();
+		
+//		for (Solution solution : result) {
+//			if (!solution.violatesConstraints()) {
+//				System.out.format("%.4f, %.4f, %.4f,%n",
+//						solution.getObjective(0),
+//						solution.getObjective(1),
+//						solution.getObjective(2));
+//			}
+//		}
 	}
 
 }
