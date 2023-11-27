@@ -22,9 +22,9 @@ import java.io.IOException;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
-import org.moeaframework.problem.ExternalProblem2;
+import org.moeaframework.problem.NativeProblem;
 
-public class HBV extends ExternalProblem2 {
+public class HBV extends NativeProblem {
 	
 	public static final String PATH = "./native/HBV/bin/";
 	
@@ -37,13 +37,8 @@ public class HBV extends ExternalProblem2 {
 	}
 	
 	public static ProcessBuilder createProcess() {
-		String command = SystemUtils.IS_OS_WINDOWS ?
-				PATH + "hbv.exe" :
-				"./hbv";
-		
-		return new ProcessBuilder()
-				.command(command)
-				.directory(new File(PATH));
+		String command = SystemUtils.IS_OS_WINDOWS ? PATH + "hbv.exe" : "./hbv";
+		return new ProcessBuilder().command(command).directory(new File(PATH));
 	}
 
 	@Override

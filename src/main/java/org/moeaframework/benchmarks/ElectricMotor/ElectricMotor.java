@@ -117,8 +117,7 @@ public class ElectricMotor extends AbstractProblem {
 
 		// power
 		double RA = RESIST * NARM * (2.0 * LENGTH + 2.0 * RDIAM) / AWA;
-		double RS = RESIST * 2.0 * NFIELD
-				* (2.0 * LENGTH + 4.0 * (RADIUS - THICK)) / AWF;
+		double RS = RESIST * 2.0 * NFIELD * (2.0 * LENGTH + 4.0 * (RADIUS - THICK)) / AWF;
 		double LOSS = Math.pow(CURRNT, 2.0) * (RA + RS) + 2.0 * CURRNT;
 		double POWER = VOLTAG * CURRNT - LOSS;
 		double EFFIC = POWER / (VOLTAG * CURRNT);
@@ -152,15 +151,12 @@ public class ElectricMotor extends AbstractProblem {
 		double SPEED = POWER / TORQUE;
 
 		// mass
-		double MSTATOR = Math.PI * LENGTH * DSTEEL
-				* (Math.pow(RADIUS, 2.0) - Math.pow(RADIUS - THICK, 2.0));
+		double MSTATOR = Math.PI * LENGTH * DSTEEL * (Math.pow(RADIUS, 2.0) - Math.pow(RADIUS - THICK, 2.0));
 
 		double MROTOR = Math.PI * LENGTH * DSTEEL * Math.pow(RDIAM / 2.0, 2.0);
 
 		double MWIND = ((2.0 * LENGTH + 2.0 * RDIAM) * AWA * NARM +
-				(2.0 * LENGTH + 4.0 * (RADIUS - THICK))
-				* AWF * 2.0 * NFIELD)
-				* DCOPPR;
+				(2.0 * LENGTH + 4.0 * (RADIUS - THICK)) * AWF * 2.0 * NFIELD) * DCOPPR;
 
 		double MASS = MSTATOR + MROTOR + MWIND;
 

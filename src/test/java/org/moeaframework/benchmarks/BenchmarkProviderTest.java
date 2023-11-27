@@ -19,8 +19,8 @@ public class BenchmarkProviderTest {
 				.withMaxEvaluations(200)
 				.run();
 		
-		//Assert.assertNotNull("Missing reference set",
-		//		ProblemFactory.getInstance().getReferenceSet(problemName));
+		Assert.assertNotNull("Missing reference set",
+				ProblemFactory.getInstance().getReferenceSet(problemName));
 	}
 	
 	@Test

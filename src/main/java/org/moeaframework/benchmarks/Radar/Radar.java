@@ -24,9 +24,7 @@ public class Radar extends ExternalProblem {
 		int port = PRNG.nextInt(10000, 65536);
 		String command = Settings.PROPERTIES.contains("matlab.path") ?
 				Settings.PROPERTIES.getString("matlab.path", "matlab") :
-					SystemUtils.IS_OS_WINDOWS ?
-							"matlab.exe" :
-							"matlab";
+					SystemUtils.IS_OS_WINDOWS ? "matlab.exe" : "matlab";
 
 		validate();
 

@@ -6,13 +6,13 @@ import java.io.IOException;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.EncodingUtils;
-import org.moeaframework.problem.ExternalProblem2;
+import org.moeaframework.problem.NativeProblem;
 
 /**
  * The water distribution system (WDS) problem designed for use with the
  * MOEA Framework.
  */
-public class WDS extends ExternalProblem2 {
+public class WDS extends NativeProblem {
 	
 	public static final String PATH = "./native/WDS/bin/";
 	

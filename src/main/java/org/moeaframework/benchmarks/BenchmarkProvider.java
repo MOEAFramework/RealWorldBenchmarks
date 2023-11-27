@@ -33,35 +33,29 @@ public class BenchmarkProvider extends ProblemProvider {
 			try {
 				return new HBV();
 			} catch (IOException e) {
-				throw new FrameworkException(
-						"unable to run HBV executable", e);
+				throw new FrameworkException("unable to run HBV executable", e);
 			}
 		} else if (problemName.equalsIgnoreCase("LRGV")) {
 			try {
 				return new LRGV();
 			} catch (IOException e) {
-				throw new FrameworkException(
-						"unable to run LRGV executable", e);
+				throw new FrameworkException("unable to run LRGV executable", e);
 			}
 		} else if (problemName.equalsIgnoreCase("LakeProblem")) {
 			try {
 				return new LakeProblem();
 			} catch (IOException e) {
-				throw new FrameworkException(
-						"unable to run LakeProblem executable", e);
+				throw new FrameworkException("unable to run LakeProblem executable", e);
 			}
-		} else if (problemName.startsWith("WDS(") &&
-				problemName.endsWith(")")) {
+		} else if (problemName.startsWith("WDS(") && problemName.endsWith(")")) {
 			String variant = problemName.substring(4, problemName.length()-1);
 			
 			try {
 				return new WDS(WDSInstance.valueOf(variant.toUpperCase()));
 			} catch (IllegalArgumentException e) {
-				throw new FrameworkException(
-						"no WDS instance found with name " + variant, e);
+				throw new FrameworkException("no WDS instance found with name " + variant, e);
 			} catch (IOException e) {
-				throw new FrameworkException(
-						"unable to run WDS executable", e);
+				throw new FrameworkException("unable to run WDS executable", e);
 			}
 		} else {
 			return null;

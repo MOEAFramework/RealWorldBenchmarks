@@ -34,8 +34,7 @@ public enum WDSInstance {
 	
 	private final double[] epsilon;
 	
-	WDSInstance(String name, int numberOfVariables, int numberOfOptions,
-			double[] epsilon) {
+	WDSInstance(String name, int numberOfVariables, int numberOfOptions, double[] epsilon) {
 		this.name = name;
 		this.numberOfVariables = numberOfVariables;
 		this.numberOfOptions = numberOfOptions;

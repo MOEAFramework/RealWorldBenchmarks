@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.moeaframework.Executor;
-import org.moeaframework.benchmarks.HBV.HBV;
-import org.moeaframework.benchmarks.LRGV.LRGV;
 import org.moeaframework.benchmarks.LakeProblem.LakeProblem;
 import org.moeaframework.core.EpsilonBoxDominanceArchive;
 import org.moeaframework.core.PopulationIO;

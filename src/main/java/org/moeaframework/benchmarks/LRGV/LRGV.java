@@ -6,9 +6,9 @@ import java.io.IOException;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
-import org.moeaframework.problem.ExternalProblem2;
+import org.moeaframework.problem.NativeProblem;
 
-public class LRGV extends ExternalProblem2 {
+public class LRGV extends NativeProblem {
 	
 	public static final String PATH = "./native/LRGV/bin/";
 	
@@ -21,10 +21,7 @@ public class LRGV extends ExternalProblem2 {
 	}
 	
 	public static ProcessBuilder createProcess() {
-		String command = SystemUtils.IS_OS_WINDOWS ?
-				PATH + "lrgv.exe" :
-				"./lrgv";
-		
+		String command = SystemUtils.IS_OS_WINDOWS ? PATH + "lrgv.exe" : "./lrgv";
 		return new ProcessBuilder()
 				.command(command, "-m", "std-io", "-b", "AllDecAll", "-c", "ten-year")
 				.directory(new File(PATH));
