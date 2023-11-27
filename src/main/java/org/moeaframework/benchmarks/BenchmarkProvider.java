@@ -15,20 +15,16 @@ public class BenchmarkProvider extends RegisteredProblemProvider {
 	public BenchmarkProvider() {
 		super();
 		
-		register("GAA", () -> new GAA(), locateReferenceSet(GAA.class, "GAA.reference"));
-		register("CarSideImpact", () -> new CarSideImpact(), locateReferenceSet(CarSideImpact.class, "CarSideImpact.reference"));
-		register("ElectricMotor", () -> new ElectricMotor(), locateReferenceSet(ElectricMotor.class, "ElectricMotor.reference"));
-		register("HBV", () -> new HBV(), locateReferenceSet(HBV.class, "HBV.reference"));
+		register("GAA", () -> new GAA(), "./pf/GAA.reference");
+		register("CarSideImpact", () -> new CarSideImpact(), "./pf/CarSideImpact.reference");
+		register("ElectricMotor", () -> new ElectricMotor(), "./pf/ElectricMotor.reference");
+		register("HBV", () -> new HBV(), "./pf/HBV.reference");
 		register("LRGV", () -> new LRGV(), null);
-		register("LakeProblem", () -> new LakeProblem(), locateReferenceSet(LakeProblem.class, "LakeProblem.reference"));
+		register("LakeProblem", () -> new LakeProblem(), "./pf/LakeProblem.reference");
 		
 		for (WDSInstance variant : WDSInstance.values()) {
-			register("WDS(" + variant.getName() + ")", () -> new WDS(variant), locateReferenceSet(WDS.class, variant.getName() + ".reference"));
+			register("WDS(" + variant.getName() + ")", () -> new WDS(variant), "./pf/" + variant.getName() + ".reference");
 		}
 	}
 	
-	private static String locateReferenceSet(Class<?> problem, String filename) {
-		return problem.getPackageName().replace(".", "/") + "/" + filename;
-	}
-
 }

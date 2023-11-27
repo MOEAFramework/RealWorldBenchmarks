@@ -12,56 +12,58 @@ import org.moeaframework.core.spi.ProblemFactory;
  */
 public class BenchmarkProviderTest {
 	
-	protected void test(String problemName) {
+	protected void test(String problemName, boolean hasReferenceSet) {
 		new Executor()
 				.withAlgorithm("NSGAII")
 				.withProblem(problemName)
 				.withMaxEvaluations(200)
 				.run();
 		
-		Assert.assertNotNull("Missing reference set",
-				ProblemFactory.getInstance().getReferenceSet(problemName));
+		if (hasReferenceSet) {
+			Assert.assertNotNull("Missing reference set",
+					ProblemFactory.getInstance().getReferenceSet(problemName));
+		}
 	}
 	
 	@Test
 	public void testCarSideImpact() {
-		test("CarSideImpact");
+		test("CarSideImpact", true);
 	}
 	
 	@Test
 	public void testElectricMotor() {
-		test("ElectricMotor");
+		test("ElectricMotor", true);
 	}
 	
 	@Test
 	public void testGAA() {
-		test("GAA");
+		test("GAA", true);
 	}
 	
 	@Test
 	public void testHBV() {
-		test("HBV");
+		test("HBV", true);
 	}
 	
-//	@Test
-//	public void testLakeProblem() {
-//		test("LakeProblem");
-//	}
+	@Test
+	public void testLakeProblem() {
+		test("LakeProblem", true);
+	}
 	
-//	@Test
-//	public void testLRGV() {
-//		test("LRGV");
-//	}
+	@Test
+	public void testLRGV() {
+		test("LRGV", false);
+	}
 	
 	@Test
 	@Ignore("requires matlab")
 	public void testRadar() {
-		test("Radar");
+		test("Radar", false);
 	}
 	
 	@Test
 	public void testWDS() {
-		test("WDS(GOY)");
+		test("WDS(GOY)", true);
 	}
 
 }
