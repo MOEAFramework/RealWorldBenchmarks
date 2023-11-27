@@ -3,7 +3,7 @@
 This repository contains a collection of multi and many-objective optimization problems
 with real-world applications for benchmarking multiobjective evolutionary algorithms (MOEAs).
 
-[![Build Status](https://travis-ci.org/MOEAFramework/RealWorldBenchmarks.svg)](https://travis-ci.org/MOEAFramework/RealWorldBenchmarks)
+[![CI](https://github.com/MOEAFramework/RealWorldBenchmarks/actions/workflows/ci.yml/badge.svg)](https://github.com/MOEAFramework/RealWorldBenchmarks/actions/workflows/ci.yml)
 
 ### Available Benchmarks ###
 
