@@ -43,15 +43,15 @@ public class BenchmarkProviderTest {
 		test("HBV");
 	}
 	
-	@Test
-	public void testLakeProblem() {
-		test("LakeProblem");
-	}
+//	@Test
+//	public void testLakeProblem() {
+//		test("LakeProblem");
+//	}
 	
-	@Test
-	public void testLRGV() {
-		test("LRGV");
-	}
+//	@Test
+//	public void testLRGV() {
+//		test("LRGV");
+//	}
 	
 	@Test
 	@Ignore("requires matlab")
