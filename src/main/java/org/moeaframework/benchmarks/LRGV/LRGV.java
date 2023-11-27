@@ -1,7 +1,6 @@
 package org.moeaframework.benchmarks.LRGV;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
@@ -16,7 +15,7 @@ public class LRGV extends NativeProblem {
 		0.0009, 0.002, 0.03, 0.004, 0.004
 	};
 	
-	public LRGV() throws IOException {
+	public LRGV() {
 	    super(createProcess());
 	}
 	

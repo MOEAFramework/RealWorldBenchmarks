@@ -28,8 +28,7 @@ public class GenerateReferenceSet {
 		String problem = "LakeProblem";
 		double[] epsilon = LakeProblem.EPSILON;
 		
-		EpsilonBoxDominanceArchive referenceSet =
-				new EpsilonBoxDominanceArchive(epsilon);
+		EpsilonBoxDominanceArchive referenceSet = new EpsilonBoxDominanceArchive(epsilon);
 		
 		for (String algorithm : algorithms) {
 			System.out.println("Processing " + algorithm + "...");

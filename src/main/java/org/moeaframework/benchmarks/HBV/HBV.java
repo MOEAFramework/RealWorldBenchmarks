@@ -17,7 +17,6 @@ along with the HBV Benchmark Problem.  If not, see <http://www.gnu.org/licenses/
 package org.moeaframework.benchmarks.HBV;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
@@ -32,7 +31,7 @@ public class HBV extends NativeProblem {
 		0.01, 0.025, 0.01, 0.01
 	};
 	
-	public HBV() throws IOException {
+	public HBV() {
 		super(createProcess());
 	}
 	

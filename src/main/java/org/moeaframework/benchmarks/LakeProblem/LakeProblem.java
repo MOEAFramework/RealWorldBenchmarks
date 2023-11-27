@@ -1,7 +1,6 @@
 package org.moeaframework.benchmarks.LakeProblem;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
@@ -16,7 +15,7 @@ public class LakeProblem extends NativeProblem {
 		0.01, 0.01, 0.0001, 0.0001
 	};
 	
-	public LakeProblem() throws IOException {
+	public LakeProblem() {
 		super(createProcess());
 	}
 	

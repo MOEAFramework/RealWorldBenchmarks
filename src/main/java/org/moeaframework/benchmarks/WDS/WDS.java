@@ -1,7 +1,6 @@
 package org.moeaframework.benchmarks.WDS;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
@@ -9,8 +8,7 @@ import org.moeaframework.core.variable.EncodingUtils;
 import org.moeaframework.problem.NativeProblem;
 
 /**
- * The water distribution system (WDS) problem designed for use with the
- * MOEA Framework.
+ * The water distribution system (WDS) problem.
  */
 public class WDS extends NativeProblem {
 	
@@ -18,7 +16,7 @@ public class WDS extends NativeProblem {
 	
 	private final WDSInstance instance;
 
-	public WDS(WDSInstance instance) throws IOException {
+	public WDS(WDSInstance instance) {
 		super(createProcess(instance));
 		this.instance = instance;
 	}
