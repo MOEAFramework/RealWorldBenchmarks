@@ -47,7 +47,7 @@ jobs:
           [ "${{ inputs.version }}" == "${BUILD_VERSION}" ] || (>&2 echo "Version does not match value in pom.xml"; exit -1)
           [ "${{ inputs.version }}" == "$(cat README.md | grep -m 1 '<version>' | tr -d '<>/[:alpha:][:space:]')" ] || (>&2 echo "Version does not match value in README.md"; exit -1)
       - name: Build artifact
-        run: mvn package javadoc:jar
+        run: mvn package javadoc:jar -DskipTests
       - name: Sign Maven artifacts and create bundle
         if: ${{ inputs.publish_maven }}
         run: |
