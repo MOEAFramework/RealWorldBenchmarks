@@ -1,4 +1,5 @@
-bin/
-build/
-dist/
-test-results/
+.settings/
+target/
+jMetal.log
+dependency-reduced-pom.xml
+native/WDS/bin/reportFile.rpt

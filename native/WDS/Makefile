@@ -1,7 +1,8 @@
 CC = gcc
 SRC_DIR = src
-SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)/models.c $(SRC_DIR)/moeaframework.c
-C_FLAGS = -I$(SRC_DIR)/epanet2 -Lbin -lm -lepanet2 -Wl,-R,\.
+=SHARED_DIR = ../shared
+SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)/models.c $(SHARED_DIR)/moeaframework.c
+C_FLAGS = -I$(SRC_DIR)/epanet2 -I$(SHARED_DIR) -Lbin -lm -lepanet2 -Wl,-R,\.
 
 all:
 	$(MAKE) -C $(SRC_DIR)/epanet2
