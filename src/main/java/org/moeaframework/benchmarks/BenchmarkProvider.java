@@ -23,7 +23,7 @@ public class BenchmarkProvider extends RegisteredProblemProvider {
 		register("LakeProblem", () -> new LakeProblem(), "./pf/LakeProblem.reference");
 		
 		for (WDSInstance variant : WDSInstance.values()) {
-			register("WDS(" + variant.getName() + ")", () -> new WDS(variant), "./pf/" + variant.getName() + ".reference");
+			register("WDS(" + variant.getName() + ")", () -> new WDS(variant), "./pf/WDS/" + variant.getName() + ".reference");
 		}
 	}
 	
