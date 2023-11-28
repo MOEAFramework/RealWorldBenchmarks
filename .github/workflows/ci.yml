@@ -42,4 +42,5 @@ jobs:
           ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native
           cp target/${BUILD_ARTIFACT}.jar ${MOEAFRAMEWORK_ROOT}/lib
 
+          cd ${MOEAFRAMEWORK_ROOT}
           java -cp "lib/*" org.moeaframework.analysis.tools.Solve -b GAA -a NSGAII -n 10000 -f GAA.result
