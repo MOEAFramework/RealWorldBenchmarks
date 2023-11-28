@@ -1,7 +1,6 @@
 package org.moeaframework.problem;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 import org.moeaframework.core.FrameworkException;
 
@@ -15,8 +14,7 @@ public abstract class NativeProblem extends ExternalProblem {
 		try {
 			return builder.start();
 		} catch (IOException e) {
-			throw new FrameworkException("Failed to start " +
-					builder.command().stream().collect(Collectors.joining(" ")), e);
+			throw new FrameworkException("Failed to start native process", e);
 		}
 	}
 

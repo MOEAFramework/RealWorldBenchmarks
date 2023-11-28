@@ -56,8 +56,7 @@ public class WDS extends NativeProblem {
 		Solution solution = new Solution(instance.getNumberOfVariables(), 2, 1);
 		
 		for (int i = 0; i < instance.getNumberOfVariables(); i++) {
-			solution.setVariable(i, EncodingUtils.newInt(0,
-					instance.getNumberOfOptions()-1));
+			solution.setVariable(i, EncodingUtils.newInt(0, instance.getNumberOfOptions()-1));
 		}
 		
 		return solution;
