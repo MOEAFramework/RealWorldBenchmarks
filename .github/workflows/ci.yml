@@ -29,7 +29,7 @@ jobs:
           echo "BUILD_VERSION=${version}" >> $GITHUB_ENV
           echo "BUILD_ARTIFACT=${shortname}-${version}" >> $GITHUB_ENV
       - name: Build native programs
-        run: make -c native
+        run: make -C native
       - name: Test Maven
         run: mvn test
       - name: Test Local Setup (non-Maven)
