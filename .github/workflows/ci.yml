@@ -18,5 +18,25 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - run: make
-      - run: mvn test
+      - name: Get project settings
+        run: |
+          shortname=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:artifactId/text()" pom.xml)
+          version=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:version/text()" pom.xml)
+          echo "BUILD_NAME=${shortname}" >> $GITHUB_ENV
+          echo "BUILD_VERSION=${version}" >> $GITHUB_ENV
+          echo "BUILD_ARTIFACT=${shortname}-${version}" >> $GITHUB_ENV
+      - name: Build native programs
+        run: make -c native
+      - name: Test Maven
+        run: mvn test
+      - name: Test Local Setup (non-Maven)
+        run: |
+          VERSION=$(curl https://api.github.com/repos/MOEAFramework/MOEAFramework/releases/latest | jq '.tag_name' | grep -oEi '[0-9]+\.[0-9]+(\.[0-9]+)?')
+          wget https://github.com/MOEAFramework/MOEAFramework/releases/download/v${VERSION}/MOEAFramework-${VERSION}.tar.gz
+          tar -xzf MOEAFramework-${VERSION}.tar.gz
+
+          MOEAFRAMEWORK_ROOT=$(realpath -s MOEAFramework-${VERSION})
+          ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native
+          cp target/${BUILD_ARTIFACT}.jar ${MOEAFRAMEWORK_ROOT}/lib
+
+          java -cp "lib/*" org.moeaframework.analysis.tools.Solve -b GAA -a NSGAII -n 10000 -f GAA.result

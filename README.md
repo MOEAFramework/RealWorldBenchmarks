@@ -1,59 +1,117 @@
-# Real World Benchmarks #
+# Real World Benchmarks
 
-This repository contains a collection of multi and many-objective optimization problems
+This repository contains a collection of multi- and many-objective optimization problems
 with real-world applications for benchmarking multiobjective evolutionary algorithms (MOEAs).
 
 [![CI](https://github.com/MOEAFramework/RealWorldBenchmarks/actions/workflows/ci.yml/badge.svg)](https://github.com/MOEAFramework/RealWorldBenchmarks/actions/workflows/ci.yml)
 
-### Available Benchmarks ###
+## Installation
 
-The following benchmark problems are available.
+These codes are intended for use with the MOEA Framework.  Follow the steps below to setup these real-world
+benchmark problems:
 
-| Problem                                     | Variables | Objectives | Constraints | References |
-| ------------------------------------------- | :-------: | :--------: | :---------: | ---------- |
-| General Aviation Aircraft (GAA)             | 27        | 10         | 1           | [1]-[4]    |
-| HBV Rainfall-Runoff Model Calibration (HBV) | 14        | 4          | 0           | [5]        |
-| Radar Waveform Optimization                 | 8         | 9          | 0           | [6]        |
-| Car Side Impact                             | 7         | 3          | 10          | [7]        |
-| Water Supply Portfolio Planning (LRGV)      | 8         | 5          | 4           | [5], [8]   |
-| Lake Pollution Control Policy               | 100       | 4          | 1           | [9]-[11]   |
-| Electric Motor Product Family               | 80        | 20         | 60          | [12]       |
+#### Prerequisites
+
+Ensure your system has the following software installed:
+1. Java 8+
+2. Maven
+3. GNU Make
+4. GNU C/C++ compilers (`gcc` and `g++`)
+
+#### Setup MOEA Framework
+
+Download the latest MOEA Framework binaries or source code from http://moeaframework.org/ and extract the archive
+to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWORK_ROOT}` below.
+
+Alternatively, if using Maven, start a new Maven project and add a reference to the `moeaframework` dependency in
+`pom.xml`.
+
+#### Compile Benchmark Problems
+
+Several of the benchmark problems are written in other languages and must be compiled before use.  Please follow
+these steps:
+
+1. Clone this repository - `git clone https://github.com/MOEAFramework/RealWorldBenchmarks.git`
+2. Run `make -C native`
+3. Copy or link the `native/` folder into your MOEA Framework directory using either:
+   * Option 1 - Copy the entire directory with `cp -R native/ ${MOEAFRAMEWORK_ROOT}/native`
+   * Option 2 - Create a symbolic link with `ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native`
+
+#### Setup Benchmarks Library
+
+If using the source or binary distribution of the MOEA Framework, you will need to obtain `real-world-benchmarks-{version}.jar`
+and place it in the `${MOEAFRAMEWORK_ROOT}/lib` folder.  You can download this file from one of the official releases on
+GitHub or build it by running `mvn package`.
+
+Maven users can simply add a dependency for this library to `pom.xml`.
+
+## Usage
+
+To run one of these real-world benchmark problems, you can then either directly construct the problem:
+
+```java
+
+Problem problem = new GAA();
+
+NSGAII algorithm = new NSGAII(problem);
+algorithm.run(10000);
+
+NondominatedPopulation result = algorithm.getResult();
+```
+
+or reference it by name if using the `Executor`:
+
+```java
+
+NondominatedPopulation result = new Executor()
+   .withProblem("GAA")
+   .withAlgorithm("NSGAII")
+   .withMaxEvaluations(10000)
+   .run();
+```
+
+## Available Benchmarks
+
+The following benchmark problems are available:
+
+| Problem                                     | Problem Name    | Variables | Objectives | Constraints | References |
+| ------------------------------------------- | --------------- | :-------: | :--------: | :---------: | ---------- |
+| General Aviation Aircraft                   | `GAA`           | 27        | 10         | 1           | [1]-[4]    |
+| HBV Rainfall-Runoff Model Calibration       | `HBV`           | 14        | 4          | 0           | [5]        |
+| Radar Waveform Optimization                 | `Radar`         | 8         | 9          | 0           | [6]        |
+| Car Side Impact                             | `CarSideImpact` | 7         | 3          | 10          | [7]        |
+| Water Supply Portfolio Planning             | `LRGV`          | 8         | 5          | 4           | [5], [8]   |
+| Lake Pollution Control Policy               | `LakeProblem`   | 100       | 4          | 1           | [9]-[11]   |
+| Electric Motor Product Family               | `ElectricMotor` | 80        | 20         | 60          | [12]       |
 
 In addition, this repository contains twelve bi-objective water distribution system (WDS) design problems [13]
 ranging from 8 to 567 decision variables:
 
-| Problem                          | Variables | Objectives | Constraints |
-| -------------------------------- | :-------: | :--------: | :---------: |
-| Two-reservior Network (TRN)      | 8         | 2          | 1           |
-| Two-loop Network (TLN)           | 8         | 2          | 1           |
-| BakRyan Network (BAK)            | 9         | 2          | 1           |
-| New York Tunnel Network (NYT)    | 21        | 2          | 1           |
-| Blacksburg Network (BLA)         | 23        | 2          | 1           |
-| Hanoi Network (HAN)              | 34        | 2          | 1           |
-| GoYang Network (GOY)             | 30        | 2          | 1           |
-| Fossolo Network (FOS)            | 58        | 2          | 1           |
-| Pescara Network (PES)            | 99        | 2          | 1           |
-| Modena Network (MOD)             | 317       | 2          | 1           |
-| Belerma Irrigation Network (BIN) | 454       | 2          | 1           |
-| Exeter Network (EXN)             | 567       | 2          | 1           |
+| Problem                          | Problem Name | Variables | Objectives | Constraints |
+| -------------------------------- | ------------ | :-------: | :--------: | :---------: |
+| Two-reservior Network (TRN)      | `WDS(TRN)`   | 8         | 2          | 1           |
+| Two-loop Network (TLN)           | `WDS(TLN)`   | 8         | 2          | 1           |
+| BakRyan Network (BAK)            | `WDS(BAK)`   | 9         | 2          | 1           |
+| New York Tunnel Network (NYT)    | `WDS(NYT)`   | 21        | 2          | 1           |
+| Blacksburg Network (BLA)         | `WDS(BLA)`   | 23        | 2          | 1           |
+| Hanoi Network (HAN)              | `WDS(HAN)`   | 34        | 2          | 1           |
+| GoYang Network (GOY)             | `WDS(GOY)`   | 30        | 2          | 1           |
+| Fossolo Network (FOS)            | `WDS(FOS)`   | 58        | 2          | 1           |
+| Pescara Network (PES)            | `WDS(PES)`   | 99        | 2          | 1           |
+| Modena Network (MOD)             | `WDS(MOD)`   | 317       | 2          | 1           |
+| Belerma Irrigation Network (BIN) | `WDS(BIN)`   | 454       | 2          | 1           |
+| Exeter Network (EXN)             | `WDS(EXN)`   | 567       | 2          | 1           |
 
 Additional information for specific problems can be found in the cited papers as well as
 the README files and other documentation for each problem.
 
-### License ###
+## License
 
 Most of the software contained in this repository is copyright by the respective authors
-who developed the benchmark problem.  We have provided citations to the original papers
-introducing these benchmark problems.  We encourage all users to cite the appropriate
-authors if using these problems in publications.
+who developed each benchmark problem.  Please cite these original works if using any of the
+benchmark problems.
 
-### Installation ###
-
-Several of these benchmark problems include compiled software.  For convenience, we provide
-executables for Windows users.  Linux users should ensure basic build tools are installed
-(e.g., `make`, `gcc`, `g++`) and run `make` from the root directory of this repository.
-
-### References ###
+## References
 
 1. T. W. Simpson, W. Chen, J. K. Allen, and F. Mistree (1996). "Conceptual design of a family
    of products through the use of the robust concept exploration method." In 6th AIAA/USAF/NASA/
