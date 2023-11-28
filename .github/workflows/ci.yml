@@ -18,6 +18,9 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
+      - name: Install required software
+        run: |
+          sudo apt install xmlstarlet
       - name: Get project settings
         run: |
           shortname=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:artifactId/text()" pom.xml)

@@ -40,10 +40,18 @@ these steps:
 #### Setup Benchmarks Library
 
 If using the source or binary distribution of the MOEA Framework, you will need to obtain `real-world-benchmarks-{version}.jar`
-and place it in the `${MOEAFRAMEWORK_ROOT}/lib` folder.  You can download this file from one of the official releases on
-GitHub or build it by running `mvn package`.
+and place it in the `${MOEAFRAMEWORK_ROOT}/lib` folder.  You can download this file from the
+[releases page](https://github.com/MOEAFramework/MOEAFramework/releases) or build the latest by running `mvn package -DskipTests`.
 
-Maven users can simply add a dependency for this library to `pom.xml`.
+Maven users can simply add a dependency for this library to `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.moeaframework</groupId>
+    <artifactId>real-world-benchmarks</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 ## Usage
 
