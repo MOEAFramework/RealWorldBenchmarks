@@ -30,9 +30,9 @@ jobs:
           echo "BUILD_ARTIFACT=${shortname}-${version}" >> $GITHUB_ENV
       - name: Build native programs
         run: make -C native
-      - name: Test Maven
-        run: mvn test
-      - name: Test Local Setup (non-Maven)
+      - name: Build and test with Maven
+        run: mvn package
+      - name: Test with latest MOEA Framework JAR
         run: |
           VERSION=$(curl https://api.github.com/repos/MOEAFramework/MOEAFramework/releases/latest | jq '.tag_name' | grep -oEi '[0-9]+\.[0-9]+(\.[0-9]+)?')
           wget https://github.com/MOEAFramework/MOEAFramework/releases/download/v${VERSION}/MOEAFramework-${VERSION}.tar.gz
