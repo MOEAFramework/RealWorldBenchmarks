@@ -5,7 +5,7 @@ SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)/models.c $(SHARED_DIR)/moeaframework.c
 C_FLAGS = -I$(SRC_DIR)/epanet2 -I$(SHARED_DIR) -Lbin -lm -lepanet2 -Wl,-R,\.
 
 ifeq ($(OS),Windows_NT)
-	C_FLAGS += -static-libgcc -static-libstdc++
+	C_FLAGS += -static
 endif
 
 all:

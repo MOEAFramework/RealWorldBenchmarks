@@ -33,8 +33,8 @@ C_FLAGS = -O3 -DOUT_TO_SCREEN -DHBVMOD -DRANGER_MEMORY_TRICK -DSERIAL -lm
 C_FLAGS_DEBUG = -g -O0 -DOUT_TO_SCREEN -DHBVMOD -DRANGER_MEMORY_TRICK -DSERIAL -lm
 
 ifeq ($(OS),Windows_NT)
-    C_FLAGS += -static-libgcc -static-libstdc++
-    C_FLAGS_DEBUG += -static-libgcc -static-libstdc++
+    C_FLAGS += -static
+    C_FLAGS_DEBUG += -static
 else
     C_FLAGS += -DLINUX
     C_FLAGS_DEBUG += -DLINUX

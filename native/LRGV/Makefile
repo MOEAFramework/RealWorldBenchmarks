@@ -5,7 +5,7 @@ SHARED_DIR = ../shared
 C_FLAGS=-O3 -I$(SRC_DIR) -I$(SHARED_DIR)
 
 ifeq ($(OS),Windows_NT)
-	C_FLAGS += -static-libgcc -static-libstdc++
+	C_FLAGS += -static
 else
     C_FLAGS += -DLINUX
 endif

@@ -2,11 +2,11 @@ CC = gcc
 SHARED_DIR = ../shared
 C_FLAGS = -Wall -O3 -fPIC
 
-PLATFORM := $(shell uname)
-ifeq  ($(PLATFORM),Linux)
-    EXT = so
+ifeq ($(OS),Windows_NT)
+	C_FLAGS += -static
+	EXT = dll
 else
-    EXT = dll
+	EXT = so
 endif
 
 all:

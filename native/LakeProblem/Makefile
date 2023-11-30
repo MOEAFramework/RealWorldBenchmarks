@@ -6,7 +6,7 @@ C_FLAGS = -O3 -Wno-unused-local-typedefs -I$(SRC_DIR) -I$(SHARED_DIR) -I$(SRC_DI
 SOURCE = $(SRC_DIR)/main-lake.cpp $(SHARED_DIR)/moeaframework.c
 
 ifeq ($(OS),Windows_NT)
-	C_FLAGS += -static-libgcc -static-libstdc++
+	C_FLAGS += -static
 endif
 
 all:
