@@ -4,8 +4,9 @@ SRC_DIR = src
 SHARED_DIR = ../shared
 C_FLAGS=-O3 -I$(SRC_DIR) -I$(SHARED_DIR)
 
-PLATFORM := $(shell uname)
-ifeq  ($(PLATFORM),Linux)
+ifeq ($(OS),Windows_NT)
+	C_FLAGS += -static-libgcc -static-libstdc++
+else
     C_FLAGS += -DLINUX
 endif
 
