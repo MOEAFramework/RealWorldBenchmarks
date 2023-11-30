@@ -2,7 +2,14 @@ CC=g++
 TARGET=lrgv
 SRC_DIR = src
 SHARED_DIR = ../shared
-C_FLAGS=-O3 -I$(SRC_DIR) -I$(SHARED_DIR) -DLINUX
+C_FLAGS=-O3 -I$(SRC_DIR) -I$(SHARED_DIR)
+
+ifeq ($(OS),Windows_NT)
+	C_FLAGS += -static
+else
+    C_FLAGS += -DLINUX
+endif
+
 SOURCE = $(SRC_DIR)/lrgv_main.cpp \
 	$(SHARED_DIR)/moeaframework.c \
 	$(SRC_DIR)/lrgv_functions.cpp \

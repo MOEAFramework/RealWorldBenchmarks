@@ -29,8 +29,16 @@ SRC_DIR = src
 CC_SERIAL = g++
 
 #If profiling, add the -pg flag in the last line of these as well
-C_FLAGS = -O3 -DLINUX -DOUT_TO_SCREEN -DHBVMOD -DRANGER_MEMORY_TRICK -DSERIAL -lm
-C_FLAGS_DEBUG = -g -O0 -DLINUX -DOUT_TO_SCREEN -DHBVMOD -DRANGER_MEMORY_TRICK -DSERIAL -lm
+C_FLAGS = -O3 -DOUT_TO_SCREEN -DHBVMOD -DRANGER_MEMORY_TRICK -DSERIAL -lm
+C_FLAGS_DEBUG = -g -O0 -DOUT_TO_SCREEN -DHBVMOD -DRANGER_MEMORY_TRICK -DSERIAL -lm
+
+ifeq ($(OS),Windows_NT)
+    C_FLAGS += -static
+    C_FLAGS_DEBUG += -static
+else
+    C_FLAGS += -DLINUX
+    C_FLAGS_DEBUG += -DLINUX
+endif
 
 HBV_SOURCE = $(SRC_DIR)/HBVMain.cpp \
     $(SRC_DIR)/HBV.cpp \

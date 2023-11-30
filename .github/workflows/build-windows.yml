@@ -1,0 +1,21 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Make
+        run: make -C native
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: native-windows
+          path: native/
