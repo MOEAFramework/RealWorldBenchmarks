@@ -2,8 +2,13 @@ CC = gcc
 SHARED_DIR = ../shared
 C_FLAGS = -Wall -O3 -fPIC
 
+PLATFORM := $(shell uname)
+ifeq  ($(PLATFORM),Linux)
+EXT = so
+else
+EXT = dll
+endif
+
 all:
-	$(CC) $(C_FLAGS) -o bin/moeaframework.o -c $(SHARED_DIR)/moeaframework.c
-	ld -G bin/moeaframework.o -o bin/libmoeaframework.so
-	rm bin/moeaframework.o
+	$(CC) $(C_FLAGS) -shared -o bin/moeaframework.$(EXT) -c $(SHARED_DIR)/moeaframework.c
 	
