@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:src/main/java/org/moeaframework/benchmarks/LakeProblem/LakeProblem.java
 /* Copyright 2009-2023 David Hadka and other contributors
  *
  * This file is part of the MOEA Framework.
@@ -16,6 +17,9 @@
  * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.moeaframework.benchmarks.LakeProblem;
+=======
+package org.moeaframework.benchmarks;
+>>>>>>> Stashed changes:src/main/java/org/moeaframework/benchmarks/LakeProblem.java
 
 import java.io.File;
 

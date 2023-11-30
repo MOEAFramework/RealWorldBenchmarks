@@ -1,4 +1,4 @@
-package org.moeaframework.benchmarks.Radar;
+package org.moeaframework.benchmarks;
 
 import java.io.File;
 import java.io.IOException;

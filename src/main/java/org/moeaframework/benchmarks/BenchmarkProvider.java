@@ -17,13 +17,6 @@
  */
 package org.moeaframework.benchmarks;
 
-import org.moeaframework.benchmarks.CarSideImpact.CarSideImpact;
-import org.moeaframework.benchmarks.ElectricMotor.ElectricMotor;
-import org.moeaframework.benchmarks.GAA.GAA;
-import org.moeaframework.benchmarks.HBV.HBV;
-import org.moeaframework.benchmarks.LRGV.LRGV;
-import org.moeaframework.benchmarks.LakeProblem.LakeProblem;
-import org.moeaframework.benchmarks.WDS.WDS;
 import org.moeaframework.benchmarks.WDS.WDSInstance;
 import org.moeaframework.core.spi.RegisteredProblemProvider;
 
