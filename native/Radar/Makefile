@@ -3,6 +3,10 @@ SHARED_DIR = ../shared
 C_FLAGS = -Wall -O3 -fPIC
 
 ifeq ($(OS),Windows_NT)
+<<<<<<< Updated upstream
+=======
+	C_FLAGS += -static
+>>>>>>> Stashed changes
 	EXT = dll
 else
 	EXT = so
