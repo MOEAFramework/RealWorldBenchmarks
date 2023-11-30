@@ -3,7 +3,6 @@ SHARED_DIR = ../shared
 C_FLAGS = -Wall -O3 -fPIC
 
 ifeq ($(OS),Windows_NT)
-	C_FLAGS += -static
 	EXT = dll
 else
 	EXT = so
