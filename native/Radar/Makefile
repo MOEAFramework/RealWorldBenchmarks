@@ -4,9 +4,9 @@ C_FLAGS = -Wall -O3 -fPIC
 
 PLATFORM := $(shell uname)
 ifeq  ($(PLATFORM),Linux)
-EXT = so
+    EXT = so
 else
-EXT = dll
+    EXT = dll
 endif
 
 all:
