@@ -6,10 +6,11 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os: [ 'ubuntu-latest', 'windows-latest' ]
         java: [ '16', '17', '18', '19', '20' ]
     steps:
       - uses: actions/checkout@v3
@@ -18,21 +19,13 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - name: Install required software
-        run: |
-          sudo apt install xmlstarlet
-      - name: Get project settings
-        run: |
-          shortname=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:artifactId/text()" pom.xml)
-          version=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:version/text()" pom.xml)
-          echo "BUILD_NAME=${shortname}" >> $GITHUB_ENV
-          echo "BUILD_VERSION=${version}" >> $GITHUB_ENV
-          echo "BUILD_ARTIFACT=${shortname}-${version}" >> $GITHUB_ENV
-      - name: Build native programs
+      - name: Build native programs (Linux only)
+        if: runner.os == 'Linux'
         run: make -C native
       - name: Build and test with Maven
         run: mvn package
-      - name: Test with latest MOEA Framework JAR
+      - name: Test with latest MOEA Framework JAR (Linux only)
+        if: runner.os == 'Linux'
         run: |
           VERSION=$(curl https://api.github.com/repos/MOEAFramework/MOEAFramework/releases/latest | jq '.tag_name' | grep -oEi '[0-9]+\.[0-9]+(\.[0-9]+)?')
           wget https://github.com/MOEAFramework/MOEAFramework/releases/download/v${VERSION}/MOEAFramework-${VERSION}.tar.gz
@@ -40,7 +33,7 @@ jobs:
 
           MOEAFRAMEWORK_ROOT=$(realpath -s MOEAFramework-${VERSION})
           ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native
-          cp target/${BUILD_ARTIFACT}.jar ${MOEAFRAMEWORK_ROOT}/lib
+          cp target/real-world-benchmarks-[0-9].[0-9].[0-9].jar ${MOEAFRAMEWORK_ROOT}/lib
 
           cd ${MOEAFRAMEWORK_ROOT}
-          java -cp "lib/*" org.moeaframework.analysis.tools.Solve -b GAA -a NSGAII -n 10000 -f GAA.result
+          java -cp "lib/*" org.moeaframework.analysis.tools.Solve -a NSGAII -b GAA -n 10000 -f GAA.result
