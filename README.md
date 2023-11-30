@@ -25,8 +25,7 @@ to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWO
 
 #### Compile Benchmark Problems
 
-Several of the benchmark problems are written in other languages and must be compiled before use.  To compile and setup
-these programs, run:
+Several of the benchmark problems must be compiled before use.  Run the following:
 
 1. Clone this repository - `git clone https://github.com/MOEAFramework/RealWorldBenchmarks.git`
 2. Run `make -C native`
