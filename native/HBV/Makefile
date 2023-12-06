@@ -53,4 +53,3 @@ all:
 	
 debug:
 	$(CC_SERIAL) -o bin/$(TARGET) $(C_FLAGS_DEBUG) $(HBV_SOURCE)
-

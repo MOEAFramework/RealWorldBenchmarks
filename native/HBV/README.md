@@ -1,5 +1,4 @@
 # HBV Rainfall-Runoff Model #
-## Multiobjective Optimization Benchmark ##
 
 Copyright 2011-2012 Josh Kollat, Jon Herman, Patrick Reed and others.
 Intended for use with [MOEAFramework](http://www.moeaframework.org). Licensed under
@@ -14,7 +13,7 @@ Volume 51, January 2013, Pages 438-456, ISSN 0309-1708, 10.1016/j.advwatres.2012
 ([Link to Paper](http://www.sciencedirect.com/science/article/pii/S0309170812000073))
 
 #### Description ####
-The HBV model is a lumped conceptual rainfall–runoff model with three primary routines:
+The HBV model is a lumped conceptual rainfall-runoff model with three primary routines:
 * Snow accumulation and melt, represented by a variant of the degree-day snow model
 * Soil moisture accounting, with a probability distribution to represent the spatial variability of storage elements
 * A response routine, in which the linear outflow from two sub-basins is transformed by a routing parameter. 
@@ -22,8 +21,8 @@ In sum, the model contains 14 real-valued decision variables that require calibr
 
 In this example, we are calibrating the HBV model for the Williams River, West Virginia,
 United States (USGS Gage 03186500). Calibration was performed using precipitation and
-streamflow data from the MOPEX dataset over the period 1962–1972 with a one-year warmup
-period. Four objective functions are optimized: the Nash–Sutcliffe Efficiency (NSE),
+streamflow data from the MOPEX dataset over the period 1962-1972 with a one-year warmup
+period. Four objective functions are optimized: the Nash-Sutcliffe Efficiency (NSE),
 which measures the model fit primarily during high-flow periods; the Box-Cox transformed
 root mean squared error (TRMSE), which accounts for low-flow periods; the runoff coefficient
 error (ROCE), which accounts for the long-term water balance; and the slope of the flow

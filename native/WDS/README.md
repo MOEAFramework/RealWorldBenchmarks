@@ -1,5 +1,4 @@
 # Water Distribution System #
-## Multiobjective Optimization Benchmark ##
 
 Originally developed by Mr. Qi Wang at the Centre for Water Systems, University
 of Exeter.  This source code is publicly available at

@@ -1,3 +1,5 @@
+# Radar Waveform Optimization
+
 This code is adapted from Evan J. Hughes EMO 2007 Many-Objective Radar
 Waveform Software available at http://code.evanhughes.org/.
 
@@ -30,7 +32,7 @@ The arguments to this command are the number of variables, number of
 objectives, number of constraints, the function name to optimize, and
 the port used for communication. 
 
-Troubleshooting:
+#### Troubleshooting
 
 bind: Address already in use
 Unable to establish socket connection

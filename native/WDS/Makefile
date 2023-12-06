@@ -22,3 +22,4 @@ all:
 	$(CC) -o bin/MOD -DMOD $(SOURCE) $(C_FLAGS)
 	$(CC) -o bin/BIN -DBIN $(SOURCE) $(C_FLAGS)
 	$(CC) -o bin/EXN -DEXN $(SOURCE) $(C_FLAGS)
+	
