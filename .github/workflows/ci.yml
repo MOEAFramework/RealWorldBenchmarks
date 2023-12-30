@@ -19,8 +19,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - name: Build native programs (Linux only)
-        if: runner.os == 'Linux'
+      - name: Build native programs
         run: make -C native
       - name: Build and test with Maven
         run: mvn package

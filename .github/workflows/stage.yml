@@ -21,7 +21,21 @@ on:
         type: boolean
 
 jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Windows native files
+        run: make -C native
+      - name: Create native bundle
+        run: zip -r native-windows.zip native
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-windows
+          path: native-windows.zip
   stage:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -76,10 +90,18 @@ jobs:
         with:
           name: Maven bundle
           path: maven/*-bundle.jar
+      - name: Download Windows native bundle
+        uses: actions/download-artifact@v4
+        if: always()
+        with:
+          name: native-windows
+      - name: Show content
+        run: ls -R .
       - name: Stage GitHub release
         if: ${{ inputs.publish_github }}
         run: |
           gh release create "v${{ inputs.version }}" --draft --title "Version ${{ inputs.version }}" \
+              native-windows.zip \
               target/${BUILD_ARTIFACT}.jar \
               $([ -f "${BUILD_ARTIFACT}-jar-with-dependencies.jar" ] && echo "target/${BUILD_ARTIFACT}-jar-with-dependencies.jar" || echo "")
         env:
