@@ -19,28 +19,23 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
+import org.moeaframework.problem.NativeCommand;
 import org.moeaframework.problem.NativeProblem;
 
 public class LRGV extends NativeProblem {
-	
-	public static final String PATH = "./native/LRGV/bin/";
-	
+		
 	public static final double[] EPSILON = {
 		0.0009, 0.002, 0.03, 0.004, 0.004
 	};
 	
-	public LRGV() {
-	    super(createProcess());
-	}
+	public static final NativeCommand COMMAND = new NativeCommand("lrgv",
+			new String[] { "-m", "std-io", "-b", "AllDecAll", "-c", "ten-year" },
+			new File("./native/LRGV/bin/"));
 	
-	public static ProcessBuilder createProcess() {
-		String command = SystemUtils.IS_OS_WINDOWS ? PATH + "lrgv.exe" : "./lrgv";
-		return new ProcessBuilder()
-				.command(command, "-m", "std-io", "-b", "AllDecAll", "-c", "ten-year")
-				.directory(new File(PATH));
+	public LRGV() {
+	    super(COMMAND);
 	}
 
 	@Override

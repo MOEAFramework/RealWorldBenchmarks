@@ -2,9 +2,9 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.EncodingUtils;
+import org.moeaframework.problem.NativeCommand;
 import org.moeaframework.problem.NativeProblem;
 
 /**
@@ -70,26 +70,18 @@ public class WDS extends NativeProblem {
 		public double[] getEpsilon() {
 			return epsilon.clone();
 		}
+		
+		public NativeCommand getCommand() {
+			return new NativeCommand(getName(), new String[] { }, new File("./native/WDS/bin/"));
+		}
 
 	}
-	
-	public static final String PATH = "./native/WDS/bin/";
-	
+		
 	private final WDSInstance instance;
 
 	public WDS(WDSInstance instance) {
-		super(createProcess(instance));
+		super(instance.getCommand());
 		this.instance = instance;
-	}
-	
-	public static ProcessBuilder createProcess(WDSInstance instance) {
-		String command = SystemUtils.IS_OS_WINDOWS ?
-				PATH + instance.getName() + ".exe" :
-				"./" + instance.getName();
-		
-		return new ProcessBuilder()
-				.command(command)
-				.directory(new File(PATH));
 	}
 
 	@Override

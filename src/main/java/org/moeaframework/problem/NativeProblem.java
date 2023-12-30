@@ -22,14 +22,21 @@ import java.io.IOException;
 import org.moeaframework.core.FrameworkException;
 
 public abstract class NativeProblem extends ExternalProblem {
-
-	public NativeProblem(ProcessBuilder builder) {
-		super(startProcessOrThrow(builder));
+	
+	private final NativeCommand command;
+	
+	public NativeProblem(NativeCommand command) {
+		super(startProcessOrThrow(command));
+		this.command = command;
 	}
 	
-	private static final Process startProcessOrThrow(ProcessBuilder builder) {
+	public NativeCommand getCommand() {
+		return command;
+	}
+	
+	private static final Process startProcessOrThrow(NativeCommand command) {
 		try {
-			return builder.start();
+			return command.toProcessBuilder(OsType.getOsType()).start();
 		} catch (IOException e) {
 			throw new FrameworkException("Failed to start native process", e);
 		}
