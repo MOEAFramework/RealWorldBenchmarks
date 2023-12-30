@@ -10,7 +10,7 @@ import org.moeaframework.problem.NativeProblem;
 /**
  * The water distribution system (WDS) problem.
  * 
- * @see https://engineering.exeter.ac.uk/research/cws/resources/benchmarks/pareto/
+ * See https://engineering.exeter.ac.uk/research/cws/resources/benchmarks/pareto/ for more details.
  */
 public class WDS extends NativeProblem {
 	
