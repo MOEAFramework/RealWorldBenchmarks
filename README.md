@@ -21,22 +21,25 @@ Ensure your system has the following software installed:
 #### Setup MOEA Framework
 
 Download the latest MOEA Framework binaries or source code from http://moeaframework.org/ and
-extract the archive to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWORK_ROOT}` below.
+extract the archive to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWORK_ROOT}`
+in the following steps.
+
+#### Install Real-World Benchmark Library
+
+Download the latest version of the real-world benchmarks JAR file from the
+[releases page](https://github.com/MOEAFramework/MOEAFramework/releases) and place it in the
+`${MOEAFRAMEWORK_ROOT}/lib` folder.
 
 #### Compile Benchmark Problems
 
-Several of the benchmark problems must be compiled before use.  Run the following:
+Several of the benchmark problems must be compiled before use.  If using Windows, we include compiled
+executables for each release version (see `native-windows.zip`).  Otherwise, to compile the executables, run: 
 
 1. Clone this repository - `git clone https://github.com/MOEAFramework/RealWorldBenchmarks.git`
 2. Run `make -C native`
 3. Copy or link the `native/` folder into your MOEA Framework directory using either:
    * Option 1 - Copy the entire directory with `cp -R native/ ${MOEAFRAMEWORK_ROOT}/native`
    * Option 2 - Create a symbolic link with `ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native`
-
-#### Setup Benchmark Library
-
-Finally, download the latest version of the real-world benchmarks JAR file from the
-[releases page](https://github.com/MOEAFramework/MOEAFramework/releases) and place it in the `${MOEAFRAMEWORK_ROOT}/lib` folder.
 
 ## Maven
 
