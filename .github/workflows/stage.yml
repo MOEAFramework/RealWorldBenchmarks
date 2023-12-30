@@ -89,15 +89,13 @@ jobs:
           path: maven/*-bundle.jar
       - name: Remove native/ folder 
         run: rm -rf native/
-      - name: Download Windows native bundle
+      - name: Download Windows native files
         uses: actions/download-artifact@v4
         if: always()
         with:
           name: native-windows
           path: native/
-      - name: Show content
-        run: ls -R .
-      - name: Create native bundle
+      - name: Zip Windows native files
         run: zip -r native-windows.zip native
       - name: Stage GitHub release
         if: ${{ inputs.publish_github }}
