@@ -32,7 +32,7 @@ public class LakeProblem extends NativeProblem {
 	
 	public static final NativeCommand COMMAND = new NativeCommand("lake",
 			new String[] { },
-			new File("./native/LakePRoblem/bin/"));
+			new File("./native/LakeProblem/bin/"));
 	
 	public LakeProblem() {
 		super(COMMAND);
