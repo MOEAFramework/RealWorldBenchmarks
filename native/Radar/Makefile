@@ -3,11 +3,11 @@ SHARED_DIR = ../shared
 C_FLAGS = -Wall -O3 -fPIC
 
 ifeq ($(OS),Windows_NT)
-	EXT = dll
+	LIB_NAME = moeaframework.dll
 else
-	EXT = so
+	LIB_NAME = libmoeaframework.so
 endif
 
 all:
-	$(CC) $(C_FLAGS) -shared -o bin/moeaframework.$(EXT) -c $(SHARED_DIR)/moeaframework.c
+	$(CC) $(C_FLAGS) -shared -o bin/$(LIB_NAME) -c $(SHARED_DIR)/moeaframework.c
 	
