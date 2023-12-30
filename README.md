@@ -20,8 +20,8 @@ Ensure your system has the following software installed:
 
 #### Setup MOEA Framework
 
-Download the latest MOEA Framework binaries or source code from http://moeaframework.org/ and extract the archive
-to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWORK_ROOT}` below.
+Download the latest MOEA Framework binaries or source code from http://moeaframework.org/ and
+extract the archive to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWORK_ROOT}` below.
 
 #### Compile Benchmark Problems
 
@@ -40,7 +40,9 @@ Finally, download the latest version of the real-world benchmarks JAR file from 
 
 ## Maven
 
-If using Maven, you can simply add the following dependency to your project's `pom.xml`:
+Alternatively, if you want to include these benchmark problems in a Maven project, add the following
+dependency to your `pom.xml`.  Please note that you will still need to compile the native executables
+separately.
 
 ```xml
 <dependency>
