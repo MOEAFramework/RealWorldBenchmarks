@@ -27,13 +27,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Windows native files
         run: make -C native
-      - name: Create native bundle
-        run: zip -r native-windows.zip native
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: native-windows
-          path: native-windows.zip
+          path: native/
   stage:
     needs: build
     runs-on: ubuntu-latest
@@ -90,13 +87,18 @@ jobs:
         with:
           name: Maven bundle
           path: maven/*-bundle.jar
+      - name: Remove native/ folder 
+        run: rm -rf native/
       - name: Download Windows native bundle
         uses: actions/download-artifact@v4
         if: always()
         with:
           name: native-windows
+          path: native/
       - name: Show content
         run: ls -R .
+      - name: Create native bundle
+        run: zip -r native-windows.zip native
       - name: Stage GitHub release
         if: ${{ inputs.publish_github }}
         run: |
