@@ -1,9 +1,6 @@
 package org.moeaframework.benchmarks;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.UnknownHostException;
-
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Settings;

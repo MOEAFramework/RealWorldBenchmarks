@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Assume;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.moeaframework.Executor;
 import org.moeaframework.core.spi.ProblemFactory;
