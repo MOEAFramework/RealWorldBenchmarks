@@ -19,12 +19,10 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - name: Setup up MSYS2 (Windows)
-        uses: msys2/setup-msys2@v2
+      - name: Add MSYS64 to PATH (Windows)
         if: runner.os == 'Windows'
+        run: echo "C:\msys64\usr\bin" >> $GITHUB_PATH
       - uses: matlab-actions/setup-matlab@v1
-      - run: echo $env:path
-        if: runner.os == 'Windows'
       - name: Setup Radar Waveform code
         run: |
           cd native/Radar/bin

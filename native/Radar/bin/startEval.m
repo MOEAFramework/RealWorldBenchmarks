@@ -1,5 +1,7 @@
 function [] = startEval(nvars, nobjs, ncons, functionHandle, port)
 
+disp('Starting...');
+
 if ~libisloaded('libmoeaframework')
     loadlibrary('libmoeaframework', 'moeamatlab.h');
 end
