@@ -9,5 +9,5 @@ else
 endif
 
 all:
-	$(CC) $(C_FLAGS) -shared -o bin/$(LIB_NAME) -c $(SHARED_DIR)/moeaframework.c
+	$(CC) $(C_FLAGS) -shared -o bin/$(LIB_NAME) $(SHARED_DIR)/moeaframework.c
 	

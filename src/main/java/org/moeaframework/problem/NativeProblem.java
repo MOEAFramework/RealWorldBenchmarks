@@ -36,7 +36,7 @@ public abstract class NativeProblem extends ExternalProblem {
 	
 	private static final Process startProcessOrThrow(NativeCommand command) {
 		try {
-			return command.toProcessBuilder(OsType.getOsType()).start();
+			return command.exec();
 		} catch (IOException e) {
 			throw new FrameworkException("Failed to start native process", e);
 		}

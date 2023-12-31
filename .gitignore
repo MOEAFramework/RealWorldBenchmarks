@@ -5,6 +5,7 @@ dependency-reduced-pom.xml
 *.so
 *.exe
 *.dll
+*.lib
 
 native/HBV/bin/hbv
 native/LRGV/bin/lrgv
@@ -22,3 +23,4 @@ native/WDS/bin/PES
 native/WDS/bin/TLN
 native/WDS/bin/TRN
 native/WDS/bin/reportFile.rpt
+native/Radar/bin/testpris.p
