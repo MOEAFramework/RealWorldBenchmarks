@@ -19,11 +19,13 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - name: Add MSYS64 to PATH (Windows)
+      - name: Add MSYS64 to PATH (Windows only)
         if: runner.os == 'Windows'
         run: |
           ls -R C:\msys64
           echo "C:\msys64\usr\bin" >> $GITHUB_PATH
+      - run: which wget
+      - run: which wget.exe
       - uses: matlab-actions/setup-matlab@v1
       - name: Setup Radar Waveform code
         run: |
@@ -34,6 +36,7 @@ jobs:
           cp web_code/testpris.p testpris.p
       - name: Test Radar Waveform code
         run: |
+          cd native/Radar/bin
           matlab -r "startEval(8,9,0,'radar','20000')"
       - name: Build native programs
         run: make -C native
