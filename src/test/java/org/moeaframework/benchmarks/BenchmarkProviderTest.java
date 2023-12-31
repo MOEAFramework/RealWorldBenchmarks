@@ -24,6 +24,7 @@ import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.moeaframework.Executor;
+import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.problem.NativeCommand;
 
