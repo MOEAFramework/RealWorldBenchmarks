@@ -2,29 +2,29 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.UnknownHostException;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Settings;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
+import org.moeaframework.problem.OsType;
 import org.moeaframework.util.io.RedirectStream;
 
 public class Radar extends ExternalProblem {
 
 	public static final String PATH = "./native/Radar/bin/";
 
-	public Radar() throws IOException {
+	public Radar() throws Exception {
 		super((String)null, startProcess());
 	}
 
-	public static int startProcess() throws IOException {
+	public static int startProcess() throws Exception {
 		int port = PRNG.nextInt(10000, 65536);
-		String command = Settings.PROPERTIES.contains("matlab.path") ?
-				Settings.PROPERTIES.getString("matlab.path", "matlab") :
-					SystemUtils.IS_OS_WINDOWS ? "matlab.exe" : "matlab";
+		String command = Settings.PROPERTIES.getString("matlab.path",
+				OsType.getOsType() == OsType.WINDOWS ? "matlab.exe" : "matlab");
 
 		validate();
 
@@ -36,11 +36,7 @@ public class Radar extends ExternalProblem {
 		RedirectStream.redirect(process.getInputStream(), System.out);
 		RedirectStream.redirect(process.getErrorStream(), System.err);
 
-		try {
-			Thread.sleep(30000);
-		} catch (InterruptedException e) {
-			// do nothing
-		}
+		Thread.sleep(Settings.PROPERTIES.getInt("matlab.sleep", 30000));
 
 		return port;
 	}

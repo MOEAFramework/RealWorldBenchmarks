@@ -17,11 +17,15 @@
  */
 package org.moeaframework.benchmarks;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.moeaframework.Executor;
 import org.moeaframework.core.spi.ProblemFactory;
+import org.moeaframework.problem.NativeCommand;
 
 /**
  * Tests to ensure each benchmark problem can be instantiated with the MOEA
@@ -39,6 +43,22 @@ public class BenchmarkProviderTest {
 		if (hasReferenceSet) {
 			Assert.assertNotNull("Missing reference set",
 					ProblemFactory.getInstance().getReferenceSet(problemName));
+		}
+	}
+	
+	protected void requires(NativeCommand command) {
+		try {
+			Process process = command.exec();
+			process.waitFor(15, TimeUnit.SECONDS);
+			
+			if (process.isAlive()) {
+				process.destroy();
+				Assume.assumeTrue("Process did not terminate within configured timeout", false);
+			}
+			
+			Assume.assumeTrue("Process exited with non-zero result code", process.exitValue() == 0);
+		} catch (Exception e) {
+			Assume.assumeNoException("Caught exception when invoking process", e);
 		}
 	}
 	
@@ -73,8 +93,8 @@ public class BenchmarkProviderTest {
 	}
 	
 	@Test
-	@Ignore("requires matlab")
 	public void testRadar() {
+		requires(new NativeCommand("matlab", new String[] { "-h" }));
 		test("Radar", false);
 	}
 	

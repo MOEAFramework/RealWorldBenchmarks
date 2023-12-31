@@ -12,6 +12,10 @@ public class NativeCommand {
 	private final String[] arguments;
 	
 	private final File workingDirectory;
+	
+	public NativeCommand(String executableName, String[] arguments) {
+		this(executableName, arguments, null);
+	}
 
 	public NativeCommand(String executableName, String[] arguments, File workingDirectory) {
 		super();
@@ -38,13 +42,18 @@ public class NativeCommand {
 	
 	public ProcessBuilder toProcessBuilder(OsType osType) {
 		List<String> command = new ArrayList<String>();
+		String executableName = getExecutableName();
 		
 		switch (osType) {
 		case WINDOWS:
-			command.add(new File(getWorkingDirectory(), getExecutableName() + ".exe").getPath());
+			if (!executableName.toLowerCase().endsWith(".exe")) {
+				executableName += ".exe";
+			}
+			
+			command.add(new File(getWorkingDirectory(), executableName).getPath());
 			break;
 		case POSIX:
-			command.add(new File(".", getExecutableName()).getPath());
+			command.add(new File(".", executableName).getPath());
 			break;
 		default:
 			throw new IllegalArgumentException("Unsupported OS " + osType);
