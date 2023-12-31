@@ -21,13 +21,7 @@ jobs:
           distribution: zulu
       - name: Add MSYS64 to PATH (Windows only)
         if: runner.os == 'Windows'
-        run: |
-          ls -R C:\msys64
-          echo "C:\msys64\usr\bin" >> $GITHUB_PATH
-      - name: Which wget
-        run: |
-          set PATH=C:\msys64\usr\bin;%PATH%
-          which wget
+        run: Add-Content $env:GITHUB_PATH "C:\msys64\usr\bin"
       - uses: matlab-actions/setup-matlab@v1
       - name: Setup Radar Waveform code
         run: |
