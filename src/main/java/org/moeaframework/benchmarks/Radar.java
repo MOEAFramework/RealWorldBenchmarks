@@ -29,7 +29,7 @@ public class Radar extends ExternalProblem {
 		validate();
 
 		Process process = new ProcessBuilder()
-				.command(command, "-r", "startEval(8,9,0,'radar','" + port + "')")
+				.command(command, "-batch", "startEval(8,9,0,'radar','" + port + "')")
 				.directory(new File(PATH))
 				.start();
 
