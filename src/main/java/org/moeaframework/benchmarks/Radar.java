@@ -19,7 +19,6 @@ public class Radar extends ExternalProblem {
 
 	public Radar() throws Exception {
 		super((String)null, startProcess());
-		setDebugStream(System.out);
 	}
 
 	public static int startProcess() throws Exception {
