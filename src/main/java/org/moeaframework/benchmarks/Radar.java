@@ -18,7 +18,7 @@ public class Radar extends ExternalProblem {
 	public static final String PATH = "./native/Radar/bin/";
 
 	public Radar() throws Exception {
-		super((String)null, startProcess());
+		super("localhost", startProcess());
 	}
 
 	public static int startProcess() throws Exception {

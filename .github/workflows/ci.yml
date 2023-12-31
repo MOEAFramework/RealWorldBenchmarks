@@ -19,11 +19,11 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - name: Add MSYS64 to PATH (Windows only)
-        if: runner.os == 'Windows'
-        run: Add-Content $env:GITHUB_PATH "C:\msys64\usr\bin"
-      - uses: matlab-actions/setup-matlab@v1
-      - name: Setup Radar Waveform code
+      - name: Setup Matlab (Linux only)
+        uses: matlab-actions/setup-matlab@v1
+        if: runner.os == 'Linux'
+      - name: Setup Radar Waveform code (Linux only)
+        if: runner.os == 'Linux'
         run: |
           cd native/Radar/bin
           wget https://perspectival-classi.000webhostapp.com/code/radar_many.zip \
