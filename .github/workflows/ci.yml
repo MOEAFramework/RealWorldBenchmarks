@@ -23,7 +23,8 @@ jobs:
         uses: msys2/setup-msys2@v2
         if: runner.os == 'Windows'
       - uses: matlab-actions/setup-matlab@v1
-      - run: echo $PATH
+      - run: echo $env:path
+        if: runner.os == 'Windows'
       - name: Setup Radar Waveform code
         run: |
           cd native/Radar/bin
