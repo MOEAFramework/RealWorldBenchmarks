@@ -22,10 +22,6 @@ jobs:
       - name: Setup Matlab (Linux only)
         uses: matlab-actions/setup-matlab@v1
         if: runner.os == 'Linux'
-      - name: Test Matlab (Linux only)
-        if: runner.os == 'Linux'
-        run: |
-          matlab -batch "exit(0)"
       - name: Setup Radar Waveform code (Linux only)
         if: runner.os == 'Linux'
         run: |

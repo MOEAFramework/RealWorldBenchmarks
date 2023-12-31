@@ -22,9 +22,6 @@ if (nargin < 5)
     port = libpointer
 end
 
-disp('Using port')
-disp(port)
-
 disp('Waiting for connection...');
 calllib(libname, 'MOEA_Init_socket', nobjs, ncons, port);
 disp('Connection established...');

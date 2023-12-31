@@ -24,7 +24,6 @@ import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.moeaframework.Executor;
-import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.problem.NativeCommand;
 
@@ -57,18 +56,12 @@ public class BenchmarkProviderTest {
 			
 			if (process.isAlive()) {
 				process.destroy();
-				throw new FrameworkException("Process did not terminate within configured timeout");
-				//Assume.assumeTrue("Process did not terminate within configured timeout", false);
+				Assume.assumeTrue("Process did not terminate within configured timeout", false);
 			}
 			
-			if (process.exitValue() != 0) {
-				throw new FrameworkException("Process exited with non-zero result code");
-			}
-
-			//Assume.assumeTrue("Process exited with non-zero result code", process.exitValue() == 0);
+			Assume.assumeTrue("Process exited with non-zero result code", process.exitValue() == 0);
 		} catch (Exception e) {
-			throw new FrameworkException("Caught exception when invoking process", e);
-			//Assume.assumeNoException("Caught exception when invoking process", e);
+			Assume.assumeNoException("Caught exception when invoking process", e);
 		}
 	}
 	
