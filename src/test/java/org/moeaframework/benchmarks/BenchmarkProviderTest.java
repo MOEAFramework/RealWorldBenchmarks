@@ -53,12 +53,18 @@ public class BenchmarkProviderTest {
 			
 			if (process.isAlive()) {
 				process.destroy();
-				Assume.assumeTrue("Process did not terminate within configured timeout", false);
+				throw new FrameworkException("Process did not terminate within configured timeout");
+				//Assume.assumeTrue("Process did not terminate within configured timeout", false);
 			}
 			
-			Assume.assumeTrue("Process exited with non-zero result code", process.exitValue() == 0);
+			if (process.exitValue() != 0) {
+				throw new FrameworkException("Process exited with non-zero result code");
+			}
+
+			//Assume.assumeTrue("Process exited with non-zero result code", process.exitValue() == 0);
 		} catch (Exception e) {
-			Assume.assumeNoException("Caught exception when invoking process", e);
+			throw new FrameworkException("Caught exception when invoking process", e)
+			//Assume.assumeNoException("Caught exception when invoking process", e);
 		}
 	}
 	
@@ -94,7 +100,7 @@ public class BenchmarkProviderTest {
 	
 	@Test
 	public void testRadar() {
-		requires(new NativeCommand("matlab", new String[] { "-batch", "exit" }));
+		requires(new NativeCommand("matlab", new String[] { "-batch", "exit(0)" }));
 		test("Radar", false);
 	}
 	
