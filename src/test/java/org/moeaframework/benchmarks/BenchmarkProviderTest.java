@@ -50,10 +50,10 @@ public class BenchmarkProviderTest {
 	protected void requires(NativeCommand command) {
 		try {
 			Process process = new ProcessBuilder()
-					.command("matlab", "-batch", "exit")
+					.command("matlab", "-batch", "exit(0)")
 					.start();
-					
-			process.waitFor(15, TimeUnit.SECONDS);
+
+			process.waitFor(30, TimeUnit.SECONDS);
 			
 			if (process.isAlive()) {
 				process.destroy();
