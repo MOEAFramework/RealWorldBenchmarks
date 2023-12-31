@@ -1,9 +1,9 @@
 function [] = startEval(nvars, nobjs, ncons, functionHandle, port)
 
 if ispc
-    libname = 'moeaframework'
+    libname = 'moeaframework';
 else
-    libname = 'libmoeaframework'
+    libname = 'libmoeaframework';
 end
 
 if ~libisloaded(libname)
