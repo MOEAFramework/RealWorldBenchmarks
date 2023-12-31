@@ -94,7 +94,7 @@ public class BenchmarkProviderTest {
 	
 	@Test
 	public void testRadar() {
-		requires(new NativeCommand("matlab", new String[] { "-h" }));
+		requires(new NativeCommand("matlab", new String[] { "-r", "exit" }));
 		test("Radar", false);
 	}
 	
