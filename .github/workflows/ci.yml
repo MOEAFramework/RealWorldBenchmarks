@@ -21,7 +21,9 @@ jobs:
           distribution: zulu
       - name: Add MSYS64 to PATH (Windows)
         if: runner.os == 'Windows'
-        run: echo "C:\msys64\usr\bin" >> $GITHUB_PATH
+        run: |
+          ls -R C:\msys64
+          echo "C:\msys64\usr\bin" >> $GITHUB_PATH
       - uses: matlab-actions/setup-matlab@v1
       - name: Setup Radar Waveform code
         run: |
@@ -30,6 +32,9 @@ jobs:
             || wget https://github.com/MOEAFramework/Archive/raw/main/radar_many.zip
           unzip radar_many.zip
           cp web_code/testpris.p testpris.p
+      - name: Test Radar Waveform code
+        run: |
+          matlab -r "startEval(8,9,0,'radar','20000')"
       - name: Build native programs
         run: make -C native
       - name: Build and test with Maven
