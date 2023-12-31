@@ -63,7 +63,7 @@ public class BenchmarkProviderTest {
 
 			//Assume.assumeTrue("Process exited with non-zero result code", process.exitValue() == 0);
 		} catch (Exception e) {
-			throw new FrameworkException("Caught exception when invoking process", e)
+			throw new FrameworkException("Caught exception when invoking process", e);
 			//Assume.assumeNoException("Caught exception when invoking process", e);
 		}
 	}
