@@ -33,7 +33,7 @@ jobs:
       - name: Test Radar Waveform code
         run: |
           cd native/Radar/bin
-          matlab -r "startEval(8,9,0,'radar','20000')"
+          matlab -batch "startEval(8,9,0,'radar','20000')"
       - name: Build native programs
         run: make -C native
       - name: Build and test with Maven
