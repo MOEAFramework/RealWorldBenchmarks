@@ -19,7 +19,9 @@ public class Radar extends ExternalProblem {
 	}
 
 	public static int startProcess() throws Exception {
-		int port = PRNG.nextInt(10000, 65536);
+		int port = Settings.PROPERTIES.getInt("matlab.port",
+				PRNG.nextInt(10000, 65536));
+		
 		String command = Settings.PROPERTIES.getString("matlab.path",
 				OsType.getOsType() == OsType.WINDOWS ? "matlab.exe" : "matlab");
 
