@@ -43,22 +43,21 @@ public class NativeCommand {
 	public ProcessBuilder toProcessBuilder(OsType osType) {
 		List<String> command = new ArrayList<String>();
 		String executableName = getExecutableName();
+		File workingDirectory = getWorkingDirectory();
 		
-		switch (osType) {
-		case WINDOWS:
-			if (!executableName.toLowerCase().endsWith(".exe")) {
-				executableName += ".exe";
-			}
-			
-			command.add(new File(getWorkingDirectory(), executableName).getPath());
-			break;
-		case POSIX:
-			command.add(new File(".", executableName).getPath());
-			break;
-		default:
-			throw new IllegalArgumentException("Unsupported OS " + osType);
+		if (osType == OsType.WINDOWS && !executableName.toLowerCase().endsWith(".exe")) {
+			executableName += ".exe";
 		}
-		
+
+		if (new File(workingDirectory, executableName).exists()) {
+			// Executable exists in working directory, run directly.
+			File relativePath = osType == OsType.WINDOWS ? workingDirectory : new File(".");
+			command.add(new File(relativePath, executableName).getPath());
+		} else {
+			// Executable not found, attempt to run from PATH.
+			command.add(executableName);
+		}
+
 		command.addAll(List.of(getArguments()));
 		
 		return new ProcessBuilder()

@@ -1,13 +1,14 @@
 package org.moeaframework.benchmarks;
 
 import java.io.File;
+
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Settings;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
-import org.moeaframework.problem.OsType;
+import org.moeaframework.problem.NativeCommand;
 import org.moeaframework.util.io.RedirectStream;
 
 public class Radar extends ExternalProblem {
@@ -19,18 +20,17 @@ public class Radar extends ExternalProblem {
 	}
 
 	public static int startProcess() throws Exception {
+		validate();
+		
 		int port = Settings.PROPERTIES.getInt("matlab.port",
 				PRNG.nextInt(10000, 65536));
 		
-		String command = Settings.PROPERTIES.getString("matlab.path",
-				OsType.getOsType() == OsType.WINDOWS ? "matlab.exe" : "matlab");
+		NativeCommand command = new NativeCommand(
+				Settings.PROPERTIES.getString("matlab.path", "matlab"),
+				new String[] { "-batch", "startEval(8,9,0,'radar','" + port + "')" },
+				new File(PATH));
 
-		validate();
-
-		Process process = new ProcessBuilder()
-				.command(command, "-batch", "startEval(8,9,0,'radar','" + port + "')")
-				.directory(new File(PATH))
-				.start();
+		Process process = command.exec();
 
 		RedirectStream.redirect(process.getInputStream(), System.out);
 		RedirectStream.redirect(process.getErrorStream(), System.err);

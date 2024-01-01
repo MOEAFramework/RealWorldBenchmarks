@@ -50,6 +50,13 @@ number of variables, objectives, and constraints, respectively.
 ## Troubleshooting
 
 ```
+testpris.p missing
+```
+
+This error indicates the Matlab code for the Radar Waveform problem is not found.  Please
+follow the setup instructions above to download and set up this problem.
+
+```
 bind: Address already in use
 Unable to establish socket connection
 ```
