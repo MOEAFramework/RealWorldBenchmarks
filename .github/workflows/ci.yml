@@ -50,4 +50,4 @@ jobs:
           make -C native
 
           cd ${MOEAFRAMEWORK_ROOT}
-          java -cp "lib/*" org.moeaframework.analysis.tools.Solve -a NSGAII -b GAA -n 10000 -f GAA.result
+          java -cp "lib/*" org.moeaframework.analysis.tools.Solve -a NSGAII -b LRGV -n 10000 -f output.set
