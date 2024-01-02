@@ -44,6 +44,10 @@ jobs:
           MOEAFRAMEWORK_ROOT=$(realpath -s MOEAFramework-${VERSION})
           ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native
           cp target/real-world-benchmarks-[0-9].[0-9].[0-9].jar ${MOEAFRAMEWORK_ROOT}/lib
+          
+          rm native/shared/*
+          cp ${MOEAFRAMEWORK_ROOT}/examples/moeaframework.[ch] native/shared
+          make -C native
 
           cd ${MOEAFRAMEWORK_ROOT}
           java -cp "lib/*" org.moeaframework.analysis.tools.Solve -a NSGAII -b GAA -n 10000 -f GAA.result
