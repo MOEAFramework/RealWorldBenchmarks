@@ -27,7 +27,7 @@ jobs:
         run: |
           cd native/Radar/bin
           wget https://perspectival-classi.000webhostapp.com/code/radar_many.zip \
-            || wget https://github.com/MOEAFramework/Archive/raw/main/radar_many.zip
+            || wget https://github.com/MOEAFramework/Archive/raw/main/evanhughes/radar_many.zip
           unzip radar_many.zip
           cp web_code/testpris.p testpris.p
       - name: Build native programs
