@@ -1,4 +1,4 @@
-/* Copyright 2009-2023 David Hadka and other contributors
+/* Copyright 2009-2024 David Hadka and other contributors
  *
  * This file is part of the MOEA Framework.
  *

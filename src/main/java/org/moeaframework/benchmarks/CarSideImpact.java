@@ -1,4 +1,4 @@
-/* Copyright 2009-2023 David Hadka and other contributors
+/* Copyright 2009-2024 David Hadka and other contributors
  *
  * This file is part of the MOEA Framework.
  *
@@ -23,15 +23,13 @@ import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.AbstractProblem;
 
 /**
- * The car side impact problem.  Aims to minimize the weight of the car while
- * minimizing the pubic force experienced by a passenger and the average
- * velocity of the V-Pillar responsible for withstanding the impact load.
+ * The car side impact problem.  Aims to minimize the weight of the car while minimizing the pubic force experienced by
+ * a passenger and the average velocity of the V-Pillar responsible for withstanding the impact load.
  * <p>
  * References:
  * <ol>
- *   <li>Jain, H. and K. Deb.  "An Evolutionary Many-Objective Optimization
- *       Algorithm Using Reference-Point-Based Nondominated Sorting Approach,
- *       Part II: Handling Constraints and Extending to an Adaptive Approach."
+ *   <li>Jain, H. and K. Deb.  "An Evolutionary Many-Objective Optimization Algorithm Using Reference-Point-Based
+ *       Nondominated Sorting Approach, Part II: Handling Constraints and Extending to an Adaptive Approach."
  *       IEEE Transactions on Evolutionary Computation, 18(4):602-622, 2014.
  * </ol>
  */

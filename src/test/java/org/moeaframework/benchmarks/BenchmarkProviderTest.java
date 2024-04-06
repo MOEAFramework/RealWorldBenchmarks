@@ -1,4 +1,4 @@
-/* Copyright 2009-2023 David Hadka and other contributors
+/* Copyright 2009-2024 David Hadka and other contributors
  *
  * This file is part of the MOEA Framework.
  *
@@ -27,8 +27,7 @@ import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.problem.NativeCommand;
 
 /**
- * Tests to ensure each benchmark problem can be instantiated with the MOEA
- * Framework and reference sets exist.
+ * Tests to ensure each benchmark problem can be instantiated with the MOEA Framework and reference sets exist.
  */
 public class BenchmarkProviderTest {
 	
@@ -40,8 +39,7 @@ public class BenchmarkProviderTest {
 				.run();
 		
 		if (hasReferenceSet) {
-			Assert.assertNotNull("Missing reference set",
-					ProblemFactory.getInstance().getReferenceSet(problemName));
+			Assert.assertNotNull("Missing reference set", ProblemFactory.getInstance().getReferenceSet(problemName));
 		}
 	}
 	

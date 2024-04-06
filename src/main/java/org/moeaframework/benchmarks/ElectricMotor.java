@@ -1,4 +1,4 @@
-/* Copyright 2009-2023 David Hadka and other contributors
+/* Copyright 2009-2024 David Hadka and other contributors
  *
  * This file is part of the MOEA Framework.
  *
@@ -27,8 +27,8 @@ import org.moeaframework.problem.AbstractProblem;
  * <p>
  * References:
  * <ol>
- *   <li>Simpson, T.W., J.R.A. Maier, and F. Mistree (2001).  "Product platform
- *       design: method and application."  Res Eng Design, 13:2-22.
+ *   <li>Simpson, T.W., J.R.A. Maier, and F. Mistree (2001).  "Product platform design: method and application."
+ *       Res Eng Design, 13:2-22.
  * </ol>
  */
 public class ElectricMotor extends AbstractProblem {

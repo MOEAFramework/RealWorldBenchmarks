@@ -51,7 +51,7 @@ separately.
 <dependency>
     <groupId>org.moeaframework</groupId>
     <artifactId>real-world-benchmarks</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 

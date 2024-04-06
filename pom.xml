@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.moeaframework</groupId>
 	<artifactId>real-world-benchmarks</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>Real World Benchmarks</name>
@@ -31,15 +31,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.moeaframework</groupId>
 			<artifactId>moeaframework</artifactId>
-			<version>3.8</version>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
