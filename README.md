@@ -13,7 +13,7 @@ benchmark problems:
 #### Prerequisites
 
 Ensure your system has the following software installed:
-1. Java 8+
+1. Java 17+
 2. Maven
 3. GNU Make
 4. GNU C/C++ compilers (`gcc` and `g++`)
