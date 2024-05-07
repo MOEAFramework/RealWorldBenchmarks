@@ -1,13 +1,15 @@
-CC=g++
-TARGET=lrgv
+CC = g++
+TARGET = lrgv
 SRC_DIR = src
 SHARED_DIR = ../shared
-C_FLAGS=-O3 -I$(SRC_DIR) -I$(SHARED_DIR)
+CFLAGS = -O3 -I$(SRC_DIR) -I$(SHARED_DIR)
+LIBS =
 
 ifeq ($(OS),Windows_NT)
-	C_FLAGS += -static
+	CFLAGS += -static
+	LIBS += -lwsock32 -lWs2_32
 else
-    C_FLAGS += -DLINUX
+    CFLAGS += -DLINUX
 endif
 
 SOURCE = $(SRC_DIR)/lrgv_main.cpp \
@@ -22,5 +24,5 @@ SOURCE = $(SRC_DIR)/lrgv_main.cpp \
 	$(SRC_DIR)/rand.cpp
 
 all:
-	$(CC) $(C_FLAGS) -o bin/$(TARGET) $(SOURCE)
+	$(CC) $(CFLAGS) -o bin/$(TARGET) $(SOURCE) $(LIBS)
 

@@ -1,13 +1,15 @@
 CC = gcc
 SHARED_DIR = ../shared
-C_FLAGS = -Wall -O3 -fPIC
+CFLAGS = -Wall -O3 -fPIC
+LIBS =
 
 ifeq ($(OS),Windows_NT)
-	LIB_NAME = moeaframework.dll
+	TARGET = moeaframework.dll
+	LIBS += -lwsock32 -lWs2_32
 else
-	LIB_NAME = libmoeaframework.so
+	TARGET = libmoeaframework.so
 endif
 
 all:
-	$(CC) $(C_FLAGS) -shared -o bin/$(LIB_NAME) $(SHARED_DIR)/moeaframework.c
+	$(CC) $(CFLAGS) -shared -o bin/$(TARGET) $(SHARED_DIR)/moeaframework.c $(LIBS)
 	
