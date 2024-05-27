@@ -24,7 +24,6 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.moeaframework.Executor;
 import org.moeaframework.core.spi.ProblemFactory;
-import org.moeaframework.problem.NativeCommand;
 
 /**
  * Tests to ensure each benchmark problem can be instantiated with the MOEA Framework and reference sets exist.
@@ -35,7 +34,7 @@ public class BenchmarkProviderTest {
 		new Executor()
 				.withAlgorithm("NSGAII")
 				.withProblem(problemName)
-				.withMaxEvaluations(200)
+				.withMaxEvaluations(1000)
 				.run();
 		
 		if (hasReferenceSet) {
@@ -43,7 +42,7 @@ public class BenchmarkProviderTest {
 		}
 	}
 	
-	protected void requires(NativeCommand command) {
+	protected void requiresMatlab() {
 		try {
 			Process process = new ProcessBuilder()
 					.command("matlab", "-batch", "exit(0)")
@@ -94,7 +93,7 @@ public class BenchmarkProviderTest {
 	
 	@Test
 	public void testRadar() {
-		requires(new NativeCommand("matlab", new String[] { "-batch", "exit(0)" }));
+		requiresMatlab();
 		test("Radar", false);
 	}
 	

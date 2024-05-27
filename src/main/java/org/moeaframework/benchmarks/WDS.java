@@ -19,17 +19,17 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.EncodingUtils;
-import org.moeaframework.problem.NativeCommand;
-import org.moeaframework.problem.NativeProblem;
+import org.moeaframework.problem.ExternalProblem;
 
 /**
  * The water distribution system (WDS) problem.
  * 
  * See https://engineering.exeter.ac.uk/research/cws/resources/benchmarks/pareto/ for more details.
  */
-public class WDS extends NativeProblem {
+public class WDS extends ExternalProblem {
 	
 	public enum WDSInstance {
 		
@@ -88,8 +88,10 @@ public class WDS extends NativeProblem {
 			return epsilon.clone();
 		}
 		
-		public NativeCommand getCommand() {
-			return new NativeCommand(getName(), new String[] { }, new File("./native/WDS/bin/"));
+		public Builder getBuilder() {
+			return new Builder()
+					.withCommand(SystemUtils.IS_OS_WINDOWS ? getName() + ".exe" : getName())
+					.withWorkingDirectory(new File("./native/WDS/bin/"));
 		}
 
 	}
@@ -97,7 +99,7 @@ public class WDS extends NativeProblem {
 	private final WDSInstance instance;
 
 	public WDS(WDSInstance instance) {
-		super(instance.getCommand());
+		super(instance.getBuilder());
 		this.instance = instance;
 	}
 

@@ -18,23 +18,21 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
-import org.moeaframework.problem.NativeCommand;
-import org.moeaframework.problem.NativeProblem;
+import org.moeaframework.problem.ExternalProblem;
 
-public class HBV extends NativeProblem {
+public class HBV extends ExternalProblem {
 	
 	public static final double[] EPSILON = new double[] {
 		0.01, 0.025, 0.01, 0.01
 	};
 	
-	public static final NativeCommand COMMAND = new NativeCommand("hbv",
-			new String[] { },
-			new File("./native/HBV/bin/"));
-	
 	public HBV() {
-		super(COMMAND);
+		super(new Builder()
+				.withCommand(SystemUtils.IS_OS_WINDOWS ? "hbv.exe" : "hbv")
+				.withWorkingDirectory(new File("./native/HBV/bin/")));
 	}
 	
 	@Override

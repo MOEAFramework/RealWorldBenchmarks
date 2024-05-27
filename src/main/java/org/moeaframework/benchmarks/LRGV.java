@@ -19,23 +19,21 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
-import org.moeaframework.problem.NativeCommand;
-import org.moeaframework.problem.NativeProblem;
+import org.moeaframework.problem.ExternalProblem;
 
-public class LRGV extends NativeProblem {
+public class LRGV extends ExternalProblem {
 		
 	public static final double[] EPSILON = {
 		0.0009, 0.002, 0.03, 0.004, 0.004
 	};
 	
-	public static final NativeCommand COMMAND = new NativeCommand("lrgv",
-			new String[] { "-m", "std-io", "-b", "AllDecAll", "-c", "ten-year" },
-			new File("./native/LRGV/bin/"));
-	
 	public LRGV() {
-	    super(COMMAND);
+		super(new Builder()
+				.withCommand(SystemUtils.IS_OS_WINDOWS ? "lrgv.exe" : "lrgv", "-m", "std-io", "-b", "AllDecAll", "-c", "ten-year")
+				.withWorkingDirectory(new File("./native/LRGV/bin/")));
 	}
 
 	@Override

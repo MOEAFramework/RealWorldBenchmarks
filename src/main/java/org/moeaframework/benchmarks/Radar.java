@@ -18,6 +18,7 @@
 package org.moeaframework.benchmarks;
 
 import java.io.File;
+import java.time.Duration;
 
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.PRNG;
@@ -25,42 +26,27 @@ import org.moeaframework.core.Settings;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
-import org.moeaframework.problem.NativeCommand;
-import org.moeaframework.util.io.RedirectStream;
 
 public class Radar extends ExternalProblem {
 
-	public static final String PATH = "./native/Radar/bin/";
-
 	public Radar() throws Exception {
-		super("127.0.0.1", startProcess());
+		super(createBuilder());
 	}
 
-	public static int startProcess() throws Exception {
-		validate();
-		
-		int port = Settings.PROPERTIES.getInt("matlab.port",
-				PRNG.nextInt(10000, 65536));
-		
-		NativeCommand command = new NativeCommand(
-				Settings.PROPERTIES.getString("matlab.path", "matlab"),
-				new String[] { "-batch", "startEval(8,9,0,'radar','" + port + "')" },
-				new File(PATH));
-
-		Process process = command.exec();
-
-		RedirectStream.redirect(process.getInputStream(), System.out);
-		RedirectStream.redirect(process.getErrorStream(), System.err);
-
-		Thread.sleep(Settings.PROPERTIES.getInt("matlab.sleep", 30000));
-
-		return port;
-	}
-
-	public static void validate() {
-		if (!new File(PATH, "testpris.p").exists()) {
+	public static Builder createBuilder() {
+		if (!new File("./native/Radar/bin/", "testpris.p").exists()) {
 			throw new FrameworkException("testpris.p missing, see installation instructions");
 		}
+		
+		int port = Settings.PROPERTIES.getInt("matlab.port", PRNG.nextInt(10000, 65536));
+		int retries = Settings.PROPERTIES.getInt("matlab.retries", 30);
+		String command = Settings.PROPERTIES.getString("matlab.path", "matlab");
+		
+		return new Builder()
+				.withCommand(command, "-batch", "startEval(8,9,0,'radar','" + port + "')")
+				.withWorkingDirectory(new File("./native/Radar/bin/"))
+				.withSocket("127.0.0.1", port)
+				.withRetries(retries, Duration.ofSeconds(1));
 	}
 
 	@Override

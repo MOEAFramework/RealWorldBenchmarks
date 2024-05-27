@@ -39,7 +39,10 @@
 #endif
 
 #define MOEA_WHITESPACE " \t"
-#define MOEA_BUFFER_SIZE 1024
+
+#ifndef MOEA_BUFFER_SIZE
+#define MOEA_BUFFER_SIZE 4096
+#endif
 
 FILE* MOEA_Stream_input = NULL;
 FILE* MOEA_Stream_output = NULL;
@@ -112,7 +115,7 @@ MOEA_Status MOEA_Error(const MOEA_Status status) {
   }
 }
 
-MOEA_Status MOEA_Buffer_capacity(int required) {
+MOEA_Status MOEA_Buffer_capacity(size_t required) {
   if (required < MOEA_Buffer_limit) {
     return MOEA_SUCCESS;
   }
@@ -168,7 +171,7 @@ MOEA_Status MOEA_Init(const int objectives, const int constraints) {
 MOEA_Status MOEA_Init_socket(const int objectives, const int constraints, const char* service) {
   int gai_errno;
   SOCKET listen_sock;
-  int yes = 1;
+  const int yes = 1;
   struct addrinfo hints;
   struct addrinfo *servinfo = NULL;
   struct addrinfo *sp = NULL;
@@ -253,7 +256,6 @@ MOEA_Status MOEA_Debug(const char* format, ...) {
 
 MOEA_Status MOEA_Next_solution() {
   size_t len = 0;
-  int character;
 
   MOEA_Buffer_position = 0;
   
@@ -261,7 +263,8 @@ MOEA_Status MOEA_Next_solution() {
   	MOEA_Buffer[0] = '\0';
   }
   
-  while (!feof(MOEA_Stream_input)) {
+  /* loop until the full line is read or end of file */
+  while (1) {
     /* expand buffer if required */
     if (MOEA_Buffer_capacity(MOEA_Buffer_position + MOEA_BUFFER_SIZE) != MOEA_SUCCESS) {
       return MOEA_Error(MOEA_MALLOC_ERROR);
@@ -289,7 +292,8 @@ MOEA_Status MOEA_Next_solution() {
       MOEA_Buffer[MOEA_Buffer_position] = '\0';
     }
     
-    if (MOEA_Buffer[MOEA_Buffer_position-1] == '\n') {
+    /* exit loop when no data read or newline found */
+    if (MOEA_Buffer_position == 0 || MOEA_Buffer[MOEA_Buffer_position-1] == '\n') {
     	break;	
     }
   }
@@ -626,6 +630,10 @@ MOEA_Status MOEA_Terminate() {
 #ifdef __WIN32__
   WSACleanup();
 #endif
+
+  if (MOEA_Buffer != NULL) {
+    free(MOEA_Buffer);
+  }
 
   return MOEA_SUCCESS;
 }

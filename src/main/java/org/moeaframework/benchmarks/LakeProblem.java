@@ -19,23 +19,21 @@ package org.moeaframework.benchmarks;
 
 import java.io.File;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.RealVariable;
-import org.moeaframework.problem.NativeCommand;
-import org.moeaframework.problem.NativeProblem;
+import org.moeaframework.problem.ExternalProblem;
 
-public class LakeProblem extends NativeProblem {
+public class LakeProblem extends ExternalProblem {
 	
 	public static final double[] EPSILON = {
 		0.01, 0.01, 0.0001, 0.0001
 	};
 	
-	public static final NativeCommand COMMAND = new NativeCommand("lake",
-			new String[] { },
-			new File("./native/LakeProblem/bin/"));
-	
 	public LakeProblem() {
-		super(COMMAND);
+		super(new Builder()
+				.withCommand(SystemUtils.IS_OS_WINDOWS ? "lake.exe" : "lake")
+				.withWorkingDirectory(new File("./native/LakeProblem/bin/")));
 	}
 
 	@Override
