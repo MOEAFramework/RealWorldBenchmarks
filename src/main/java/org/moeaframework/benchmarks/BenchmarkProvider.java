@@ -18,7 +18,6 @@
 package org.moeaframework.benchmarks;
 
 import org.moeaframework.benchmarks.WDS.WDSInstance;
-import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.spi.RegisteredProblemProvider;
 
 public class BenchmarkProvider extends RegisteredProblemProvider {
@@ -32,18 +31,11 @@ public class BenchmarkProvider extends RegisteredProblemProvider {
 		register("HBV", HBV::new, "./pf/HBV.reference");
 		register("LRGV", LRGV::new, null);
 		register("LakeProblem", LakeProblem::new, "./pf/LakeProblem.reference");
+		register("Radar", Radar::new, null);
 		
 		for (WDSInstance variant : WDSInstance.values()) {
 			register("WDS(" + variant.getName() + ")", () -> new WDS(variant), "./pf/WDS/" + variant.getName() + ".reference");
 		}
-		
-		register("Radar", () -> {
-			try {
-				return new Radar();
-			} catch (Exception e) {
-				throw new FrameworkException("failed to start Radar problem", e);
-			}
-		}, null);
 	}
 	
 }

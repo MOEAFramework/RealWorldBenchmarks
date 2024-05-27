@@ -29,7 +29,7 @@ import org.moeaframework.problem.ExternalProblem;
 
 public class Radar extends ExternalProblem {
 
-	public Radar() throws Exception {
+	public Radar() {
 		super(createBuilder());
 	}
 
