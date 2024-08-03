@@ -17,7 +17,9 @@ jobs:
         uses: MOEAFramework/.github/actions/setup-build@main
         with:
           java-version: ${{ matrix.java }}
-          setup-matlab: true
+      - name: Set up Matlab
+        if: runner.os == 'Linux'
+        uses: matlab-actions/setup-matlab@v1
       - name: Setup Radar Waveform code (Linux only)
         if: runner.os == 'Linux'
         run: |
