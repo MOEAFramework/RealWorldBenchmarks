@@ -7,15 +7,19 @@ on:
         type: string
         description: The version to publish
         required: true
-      publish_github:
+      publish-github:
         description: 'Create draft GitHub release'
         default: true
         type: boolean
-      publish_maven:
-        description: 'Create Maven bundle'
+      publish-maven:
+        description: 'Create Maven release'
         default: true
         type: boolean
-      skip_validation:
+      trigger-tests:
+        description: 'Trigger integration tests'
+        default: true
+        type: boolean
+      skip-validation:
         description: 'Skip version validations'
         default: false
         type: boolean
@@ -35,79 +39,45 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Setup release
+        uses: MOEAFramework/.github/actions/setup-build@main
         with:
-          java-version: 17
-          distribution: temurin
-      - name: Install required software
-        run: |
-          sudo apt install xmlstarlet
-      - name: Get project settings
-        run: |
-          shortname=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:artifactId/text()" pom.xml)
-          version=$(xmlstarlet sel -N x="http://maven.apache.org/POM/4.0.0" -t -v "//x:project/x:version/text()" pom.xml)
-          echo "BUILD_NAME=${shortname}" >> $GITHUB_ENV
-          echo "BUILD_VERSION=${version}" >> $GITHUB_ENV
-          echo "BUILD_ARTIFACT=${shortname}-${version}" >> $GITHUB_ENV
-      - name: Validate version number
-        if: ${{ ! inputs.skip_validation }}
-        run: |
-        
-          [ "${{ inputs.version }}" == "${BUILD_VERSION}" ] || (>&2 echo "Version does not match value in pom.xml"; exit -1)
-          [ "${{ inputs.version }}" == "$(cat README.md | grep -m 1 '<version>' | tr -d '<>/[:alpha:][:space:]')" ] || (>&2 echo "Version does not match value in README.md"; exit -1)
-      - name: Build artifact
-        run: mvn package javadoc:jar -DskipTests
-      - name: Sign Maven artifacts and create bundle
-        if: ${{ inputs.publish_maven }}
-        run: |
-          echo -n "${GPG_SIGNING_KEY}" | base64 --decode | gpg --import
-
-          mkdir maven
-          cp pom.xml maven/${BUILD_ARTIFACT}.pom
-          cp target/${BUILD_ARTIFACT}.jar maven/
-          cp target/${BUILD_ARTIFACT}-sources.jar maven/
-          cp target/${BUILD_ARTIFACT}-javadoc.jar maven/
-          [ -f "target/${BUILD_ARTIFACT}-jar-with-dependencies.jar" ] && cp target/${BUILD_ARTIFACT}-jar-with-dependencies.jar maven/
-          
-          pushd maven
-          gpg -ab ${BUILD_ARTIFACT}.pom
-          gpg -ab ${BUILD_ARTIFACT}.jar
-          gpg -ab ${BUILD_ARTIFACT}-sources.jar
-          gpg -ab ${BUILD_ARTIFACT}-javadoc.jar
-          [ -f "${BUILD_ARTIFACT}-jar-with-dependencies.jar" ] && gpg -ab ${BUILD_ARTIFACT}-jar-with-dependencies.jar
-          
-          jar -cvf ${BUILD_ARTIFACT}-bundle.jar *
-        env:
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-      - name: Upload Maven bundle
-        if: ${{ inputs.publish_maven }}
-        uses: actions/upload-artifact@v4
+          java-version: 19
+          setup-git: true
+          email: ${{ secrets.EMAIL }}
+          username: ${{ secrets.USERNAME }}
+          github-token: ${{ secrets.PAT }}
+          gpg-signing-key: ${{ secrets.GPG_SIGNING_KEY }}
+      - name: Get project info
+        uses: MOEAFramework/.github/actions/get-project-info@main
         with:
-          name: Maven bundle
-          path: maven/*-bundle.jar
+          expected-version: ${{ inputs.version }}
+          skip-validation: ${{ inputs.skip-validation }}
+      - name: Build and stage Maven artifacts
+        if: ${{ inputs.publish-maven }}
+        uses: MOEAFramework/.github/actions/publish-maven@main
+        with:
+          skip-tests: true
+          ossrh-username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh-password: ${{ secrets.OSSRH_TOKEN }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Remove native/ folder 
         run: rm -rf native/
       - name: Download Windows native files
         uses: actions/download-artifact@v4
-        if: always()
         with:
           name: native-windows
           path: native/
       - name: Zip Windows native files
         run: zip -r native-windows.zip native
       - name: Stage GitHub release
-        if: ${{ inputs.publish_github }}
-        run: |
-          gh release create "v${{ inputs.version }}" --draft --title "Version ${{ inputs.version }}" \
-              native-windows.zip \
-              target/${BUILD_ARTIFACT}.jar \
-              $([ -f "${BUILD_ARTIFACT}-jar-with-dependencies.jar" ] && echo "target/${BUILD_ARTIFACT}-jar-with-dependencies.jar" || echo "")
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload release artifacts
-        uses: actions/upload-artifact@v4
+        if: ${{ inputs.publish-github }}
+        uses: MOEAFramework/.github/actions/publish-github@main
         with:
-          name: Release artifacts
-          path: target/*.jar
+          extra-files: native-windows.zip
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Trigger integration tests
+        uses: MOEAFramework/.github/actions/integration-test@main
+        with:
+          github-token: ${{ secrets.PAT }}
+          
