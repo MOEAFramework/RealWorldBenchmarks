@@ -2,6 +2,9 @@
 
 This repository contains a collection of multi- and many-objective optimization problems
 with real-world applications for benchmarking multiobjective evolutionary algorithms (MOEAs).
+Please cite the following if using this code:
+
+> Zatarain Salazar, J., Hadka, D., Reed, P., Seada, H., & Deb, K. (2024). Diagnostic benchmarking of many-objective evolutionary algorithms for real-world problems. Engineering Optimization, 1–22. https://doi.org/10.1080/0305215X.2024.2381818
 
 [![CI](https://github.com/MOEAFramework/RealWorldBenchmarks/actions/workflows/ci.yml/badge.svg)](https://github.com/MOEAFramework/RealWorldBenchmarks/actions/workflows/ci.yml)
 
