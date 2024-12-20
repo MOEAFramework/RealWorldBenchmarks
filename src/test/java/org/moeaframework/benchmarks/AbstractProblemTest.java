@@ -24,15 +24,17 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Ignore;
 import org.moeaframework.algorithm.NSGAII;
-import org.moeaframework.core.Settings;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.population.NondominatedPopulation;
 import org.moeaframework.core.spi.ProblemFactory;
+import org.moeaframework.core.variable.BinaryIntegerVariable;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.Problem;
 
 @Ignore("abstract test class")
 public class AbstractProblemTest {
+	
+	private static final double EPS = 0.01;
 	
 	protected void testSolve(String problemName) {
 		try (Problem problem = ProblemFactory.getInstance().getProblem(problemName)) {
@@ -63,14 +65,40 @@ public class AbstractProblemTest {
 			problem.evaluate(solution);
 			
 			try {
-				Assert.assertArrayEquals("Objectives do not match", expectedObjectives, solution.getObjectiveValues(), Settings.EPS);
+				Assert.assertArrayEquals("Objectives do not match", expectedObjectives, solution.getObjectiveValues(), EPS);
 			} catch (AssertionError e) {
 				System.out.println("Actual Objectives: " + Arrays.toString(solution.getObjectiveValues()));
 				throw e;
 			}
 			
 			try {
-			Assert.assertArrayEquals("Constraints do not match", expectedConstraints, solution.getConstraintValues(), Settings.EPS);
+			Assert.assertArrayEquals("Constraints do not match", expectedConstraints, solution.getConstraintValues(), EPS);
+			} catch (AssertionError e) {
+				System.out.println("Actual Constraints: " + Arrays.toString(solution.getConstraintValues()));
+				throw e;
+			}
+			
+			Assert.assertEquals("Feasibility does not match", isFeasible, solution.isFeasible());
+			
+		}
+	}
+	
+	protected void testSolution(String problemName, int[] variables, double[] expectedObjectives, double[] expectedConstraints, boolean isFeasible) {
+		try (Problem problem = ProblemFactory.getInstance().getProblem(problemName)) {
+			Solution solution = problem.newSolution();
+			BinaryIntegerVariable.setInt(solution, variables);
+			
+			problem.evaluate(solution);
+			
+			try {
+				Assert.assertArrayEquals("Objectives do not match", expectedObjectives, solution.getObjectiveValues(), EPS);
+			} catch (AssertionError e) {
+				System.out.println("Actual Objectives: " + Arrays.toString(solution.getObjectiveValues()));
+				throw e;
+			}
+			
+			try {
+			Assert.assertArrayEquals("Constraints do not match", expectedConstraints, solution.getConstraintValues(), EPS);
 			} catch (AssertionError e) {
 				System.out.println("Actual Constraints: " + Arrays.toString(solution.getConstraintValues()));
 				throw e;

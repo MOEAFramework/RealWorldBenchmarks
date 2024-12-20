@@ -17,9 +17,15 @@
  */
 package org.moeaframework.benchmarks;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class RadarTest extends AbstractProblemTest {
+	
+	@Before
+	public void setUp() {
+		requiresMatlab();
+	}
 
 	@Test
 	public void testSolve() {

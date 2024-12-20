@@ -298,7 +298,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // $ => $ MM
-    obj[1]=minResilience; // maximized
+    obj[1]=minResilience;
 	constr[0]=-(pressureViolation+errorSum);
     return;
 }
@@ -433,7 +433,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 	
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // $ => $ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+errorCode);
 	return;
 }
@@ -568,7 +568,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // $ => $ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+errorCode);
     return;
 }
@@ -709,7 +709,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // $ => $ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(violation+errorCode);
     return;
 }
@@ -868,7 +868,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // $ => $ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+velocityViolation+errorCode);
     return;
 }
@@ -997,7 +997,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // $ => $ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(headViolation+errorCode);
 	return;
 }
@@ -1143,7 +1143,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 	// report the objectives and constraint violation
 	totalCost=totalCost/1000000.0;
     obj[0]=totalCost; // $ => $ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+errorCode);
     return;
 }
@@ -1293,7 +1293,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // € => € MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+velocityViolation+errorCode);
     return;
 }
@@ -1443,7 +1443,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // € => € MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+velocityViolation+errorCode);
     return;
 }
@@ -1592,7 +1592,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // € => € MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+velocityViolation+errorCode);
     return;
 }
@@ -1728,7 +1728,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
 	obj[0]=totalCost/1000000.0; // € => € MM
-	obj[1]=-networkResilience; // for minimisation purpose
+	obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+errorCode);
 	return;
 }
@@ -1900,7 +1900,7 @@ void test_problem (double *xreal, double *xbin, int **gene, double *obj, double 
 
 	// report the objectives and constraint violation
     obj[0]=totalCost/1000000.0; // £ => £ MM
-    obj[1]=-networkResilience; // for minimisation purpose
+    obj[1]=networkResilience;
 	constr[0]=-(pressureViolation+errorCode);
     return;
 }

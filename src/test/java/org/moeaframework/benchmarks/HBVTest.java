@@ -35,7 +35,7 @@ public class HBVTest extends AbstractProblemTest {
 	public void testLowerBound() {
 		testSolution("HBV",
 				new double[] { 0.0, 0.5, 1.0, 10.0, 0.0, 0.3, 0.0, 0.0, 24.0, -3.0, 0.0, 0.0, 0.0, 0.0 },
-				new double[] { 9.910673, 3.527903, 1.225312, 1.327312 },
+				new double[] { -8.910673, 3.527903, 1.225312, 1.327312 },
 				new double[] { },
 				true);
 	}
@@ -44,7 +44,7 @@ public class HBVTest extends AbstractProblemTest {
 	public void testUpperBound() {
 		testSolution("HBV",
 				new double[] { 100.0, 20.0, 100.0, 20000.0, 100.0, 1.0, 2000.0, 7.0, 120.0, 3.0, 20.0, 1.0, 0.8, 7.0 },
-				new double[] { 0.9951112, 3.319143, 0.6665916, 0.9936301 },
+				new double[] { 0.004888769, 3.319143, 0.6665916, 0.9936301 },
 				new double[] { },
 				true);
 	}
