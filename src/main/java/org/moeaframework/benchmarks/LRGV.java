@@ -20,15 +20,17 @@ package org.moeaframework.benchmarks;
 import java.io.File;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.core.Epsilons;
 import org.moeaframework.core.Solution;
+import org.moeaframework.core.constraint.Equal;
+import org.moeaframework.core.objective.Maximize;
+import org.moeaframework.core.objective.Minimize;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
 
 public class LRGV extends ExternalProblem {
 		
-	public static final double[] EPSILON = {
-		0.0009, 0.002, 0.03, 0.004, 0.004
-	};
+	public static final Epsilons EPSILON = Epsilons.of(0.0009, 0.002, 0.03, 0.004, 0.004);
 	
 	public LRGV() {
 		super(new Builder()
@@ -59,6 +61,7 @@ public class LRGV extends ExternalProblem {
 	@Override
 	public Solution newSolution() {
 		Solution solution = new Solution(8, 6, 4);
+		
 		solution.setVariable(0, new RealVariable(0.0, 1.0));
 		solution.setVariable(1, new RealVariable(0.0, 1.0));
 		solution.setVariable(2, new RealVariable(0.1, 1.0));
@@ -67,6 +70,22 @@ public class LRGV extends ExternalProblem {
 		solution.setVariable(5, new RealVariable(0.0, 3.0));
 		solution.setVariable(6, new RealVariable(0.0, 3.0));
 		solution.setVariable(7, new RealVariable(0.0, 3.0));
+		
+		// Objectives must match those listed in the control file (see <objectives_begin>...<objectives_end>).
+		solution.setObjective(0, new Minimize("cost"));
+		solution.setObjective(1, new Maximize("critrel"));
+		solution.setObjective(2, new Minimize("surplus"));
+		solution.setObjective(3, new Minimize("drop"));
+		solution.setObjective(4, new Minimize("numleases"));
+		solution.setObjective(5, new Minimize("drtranscost"));
+		
+		// Constraints must match those listed in the control file (see <constraints_begin>...<constraints_end>).
+		// The threshold is also computed by the model, returning constraints of the form `c == 0`.
+		solution.setConstraint(0, new Equal("rel", 0.0));
+		solution.setConstraint(1, new Equal("critrel", 0.0));
+		solution.setConstraint(2, new Equal("cvar", 0.0));
+		solution.setConstraint(3, new Equal("drvuln", 0.0));
+
 		return solution;
 	}
 

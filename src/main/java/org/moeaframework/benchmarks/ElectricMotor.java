@@ -17,8 +17,13 @@
  */
 package org.moeaframework.benchmarks;
 
+import org.moeaframework.core.Epsilons;
 import org.moeaframework.core.Solution;
-import org.moeaframework.core.variable.EncodingUtils;
+import org.moeaframework.core.constraint.GreaterThan;
+import org.moeaframework.core.constraint.GreaterThanOrEqual;
+import org.moeaframework.core.constraint.LessThanOrEqual;
+import org.moeaframework.core.objective.Maximize;
+import org.moeaframework.core.objective.Minimize;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.AbstractProblem;
 
@@ -33,7 +38,7 @@ import org.moeaframework.problem.AbstractProblem;
  */
 public class ElectricMotor extends AbstractProblem {
 	
-	public static final double[] EPSILON = new double[] { 0.001 };
+	public static final Epsilons EPSILON = Epsilons.of(0.001);
 
 	public static double[] REQUIRED_TORQUE = new double[] {
 		0.05, 0.1, 0.125, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.5
@@ -59,14 +64,14 @@ public class ElectricMotor extends AbstractProblem {
 	public void evaluate(Solution solution) {
 		for (int i = 0; i < 10; i++) {
 			double[] input = new double[8];
-			input[0] = EncodingUtils.getReal(solution.getVariable(8*i + 0));
-			input[1] = EncodingUtils.getReal(solution.getVariable(8*i + 1));
-			input[2] = EncodingUtils.getReal(solution.getVariable(8*i + 2));
-			input[3] = EncodingUtils.getReal(solution.getVariable(8*i + 3));
-			input[4] = EncodingUtils.getReal(solution.getVariable(8*i + 4));
-			input[5] = EncodingUtils.getReal(solution.getVariable(8*i + 5));
-			input[6] = EncodingUtils.getReal(solution.getVariable(8*i + 6));
-			input[7] = EncodingUtils.getReal(solution.getVariable(8*i + 7));
+			input[0] = RealVariable.getReal(solution.getVariable(8*i + 0));
+			input[1] = RealVariable.getReal(solution.getVariable(8*i + 1));
+			input[2] = RealVariable.getReal(solution.getVariable(8*i + 2));
+			input[3] = RealVariable.getReal(solution.getVariable(8*i + 3));
+			input[4] = RealVariable.getReal(solution.getVariable(8*i + 4));
+			input[5] = RealVariable.getReal(solution.getVariable(8*i + 5));
+			input[6] = RealVariable.getReal(solution.getVariable(8*i + 6));
+			input[7] = RealVariable.getReal(solution.getVariable(8*i + 7));
 
 			// convert to integers
 			input[0] = Math.round(input[0]);
@@ -74,33 +79,15 @@ public class ElectricMotor extends AbstractProblem {
 
 			double[] output = evaluateMotor(input);
 
-			solution.setObjective(2*i + 0, output[1]);
-			solution.setObjective(2*i + 1, -output[2]);
+			solution.setObjectiveValue(2*i + 0, output[1]);
+			solution.setObjectiveValue(2*i + 1, output[2]);
 
-			solution.setConstraint(6*i + 0,
-					Math.abs(output[0] - REQUIRED_TORQUE[i]) <= TORQUE_EPSILON ?
-							0.0 :
-							Math.abs(output[0] - REQUIRED_TORQUE[i]));
-			solution.setConstraint(6*i + 1,
-					Math.abs(output[4] - REQUIRED_POWER) <= POWER_EPSILON ?
-							0.0 :
-							Math.abs(output[4] - REQUIRED_POWER));
-			solution.setConstraint(6*i + 2,
-					output[5] >= 1.0 ?
-							0.0 :
-							1.0 - output[5]);
-			solution.setConstraint(6*i + 3,
-					output[3] / 2.0 <= MAXIMUM_INTENSITY ?
-							0.0 :
-							output[3] / 2.0 - MAXIMUM_INTENSITY);
-			solution.setConstraint(6*i + 4,
-					output[1] <= MAXIMUM_MASS ?
-							0.0 :
-							output[1] - MAXIMUM_MASS);
-			solution.setConstraint(6*i + 5,
-					output[2] > MINIMUM_EFFICIENCY ?
-							0.0 :
-							output[2] - MINIMUM_EFFICIENCY);
+			solution.setConstraintValue(6*i + 0, Math.abs(output[0] - REQUIRED_TORQUE[i]));
+			solution.setConstraintValue(6*i + 1, Math.abs(output[4] - REQUIRED_POWER));
+			solution.setConstraintValue(6*i + 2, output[5]);
+			solution.setConstraintValue(6*i + 3, output[3] / 2.0);
+			solution.setConstraintValue(6*i + 4, output[1]);
+			solution.setConstraintValue(6*i + 5, output[2]);
 		}
 	}
 
@@ -186,28 +173,52 @@ public class ElectricMotor extends AbstractProblem {
 
 		for (int i = 0; i < 10; i++) {
 			// number of wire turns on the armature
-			solution.setVariable(8 * i + 0, new RealVariable(100, 1500));
+			solution.setVariable(8*i + 0, new RealVariable(100, 1500));
 
 			// cross-sectional area of armature wire
-			solution.setVariable(8 * i + 1, new RealVariable(0.01, 1.0));
+			solution.setVariable(8*i + 1, new RealVariable(0.01, 1.0));
 
 			// number of wire turns on each field pole
-			solution.setVariable(8 * i + 2, new RealVariable(1, 500));
+			solution.setVariable(8*i + 2, new RealVariable(1, 500));
 
 			// cross-sectional area of field wire
-			solution.setVariable(8 * i + 3, new RealVariable(0.01, 1.0));
+			solution.setVariable(8*i + 3, new RealVariable(0.01, 1.0));
 
 			// radius of the motor
-			solution.setVariable(8 * i + 4, new RealVariable(0.01, 0.1));
+			solution.setVariable(8*i + 4, new RealVariable(0.01, 0.1));
 
 			// thickness of the stator
-			solution.setVariable(8 * i + 5, new RealVariable(0.0005, 0.1));
+			solution.setVariable(8*i + 5, new RealVariable(0.0005, 0.1));
 
 			// stack length of the motor
-			solution.setVariable(8 * i + 6, new RealVariable(0.001, 0.1));
+			solution.setVariable(8*i + 6, new RealVariable(0.001, 0.1));
 
 			// current drawn by the motor
-			solution.setVariable(8 * i + 7, new RealVariable(0.1, 6.0));
+			solution.setVariable(8*i + 7, new RealVariable(0.1, 6.0));
+			
+			// minimize mass
+			solution.setObjective(2*i + 0, new Minimize());
+			
+			// maximize efficiency
+			solution.setObjective(2*i + 1, new Maximize());
+			
+			// torque must be close to required torque
+			solution.setConstraint(6*i + 0, LessThanOrEqual.to(TORQUE_EPSILON));
+			
+			// motor power output must be close to required power
+			solution.setConstraint(6*i + 1, LessThanOrEqual.to(POWER_EPSILON));
+			
+			// motor geometry must be feasible
+			solution.setConstraint(6*i + 2, GreaterThanOrEqual.to(1.0));
+			
+			// upper limit on magnitizing intensity
+			solution.setConstraint(6*i + 3, LessThanOrEqual.to(MAXIMUM_INTENSITY));
+			
+			// upper limit on mass
+			solution.setConstraint(6*i + 4, LessThanOrEqual.to(MAXIMUM_MASS));
+			
+			// minimum efficiency
+			solution.setConstraint(6*i + 5, GreaterThan.value(MINIMUM_EFFICIENCY));
 		}
 
 		return solution;

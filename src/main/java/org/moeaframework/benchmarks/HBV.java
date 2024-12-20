@@ -19,15 +19,16 @@ package org.moeaframework.benchmarks;
 import java.io.File;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.core.Epsilons;
 import org.moeaframework.core.Solution;
+import org.moeaframework.core.objective.Maximize;
+import org.moeaframework.core.objective.Minimize;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
 
 public class HBV extends ExternalProblem {
 	
-	public static final double[] EPSILON = new double[] {
-		0.01, 0.025, 0.01, 0.01
-	};
+	public static final Epsilons EPSILON = Epsilons.of(0.01, 0.025, 0.01, 0.01);
 	
 	public HBV() {
 		super(new Builder()
@@ -58,6 +59,7 @@ public class HBV extends ExternalProblem {
 	@Override
 	public Solution newSolution() {
 		Solution solution = new Solution(14, 4, 0);
+		
 		solution.setVariable(0, new RealVariable(0.0, 100.0));    //L (mm) 
 		solution.setVariable(1, new RealVariable(0.5, 20.0));     //K0 (d)
 		solution.setVariable(2, new RealVariable(1.0, 100.0));    //K1 (d)
@@ -72,6 +74,12 @@ public class HBV extends ExternalProblem {
 		solution.setVariable(11, new RealVariable(0.0, 1.0));     //CFR (-)
 		solution.setVariable(12, new RealVariable(0.0, 0.8));     //CWH (-)
 		solution.setVariable(13, new RealVariable(0.0, 7.0));     //TTI (C)
+		
+		solution.setObjective(0, new Maximize("nse"));
+		solution.setObjective(1, new Minimize("trmse"));
+		solution.setObjective(2, new Minimize("roce"));
+		solution.setObjective(3, new Minimize("sfdce"));
+		
 		return solution;
 	}
 

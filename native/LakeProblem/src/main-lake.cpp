@@ -95,13 +95,13 @@ void lake_problem(double* vars, double* objs, double* consts)
     }
   }
 
-  // Calculate minimization objectives (defined in comments at beginning of file)
+  // Calculate objectives (defined in comments at beginning of file)
   objs[0] = vmax(average_daily_P);
-  objs[1] = -1*vsum(discounted_benefit)/nSamples;
-  objs[2] = -1*vsum(days_inertia_met)/((nDays-1)*nSamples);
-  objs[3] = -1*vsum(days_pcrit_met)/(nDays*nSamples);
+  objs[1] = vsum(discounted_benefit)/nSamples;
+  objs[2] = vsum(days_inertia_met)/((nDays-1)*nSamples);
+  objs[3] = vsum(days_pcrit_met)/(nDays*nSamples);
 
-  consts[0] = max(0.0, reliability_threshold - (-1*objs[3]));
+  consts[0] = objs[3];
 
   average_daily_P.clear();
   discounted_benefit.clear();

@@ -20,15 +20,17 @@ package org.moeaframework.benchmarks;
 import java.io.File;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.core.Epsilons;
 import org.moeaframework.core.Solution;
+import org.moeaframework.core.constraint.GreaterThanOrEqual;
+import org.moeaframework.core.objective.Maximize;
+import org.moeaframework.core.objective.Minimize;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.ExternalProblem;
 
 public class LakeProblem extends ExternalProblem {
 	
-	public static final double[] EPSILON = {
-		0.01, 0.01, 0.0001, 0.0001
-	};
+	public static final Epsilons EPSILON = Epsilons.of(0.01, 0.01, 0.0001, 0.0001);
 	
 	public LakeProblem() {
 		super(new Builder()
@@ -63,6 +65,13 @@ public class LakeProblem extends ExternalProblem {
 		for (int i = 0; i < 100; i++) {
 			solution.setVariable(i, new RealVariable(0.0, 0.1));
 		}
+		
+		solution.setObjective(0, new Minimize("Max Phosphorous"));
+		solution.setObjective(1, new Maximize("Expected Benefit"));
+		solution.setObjective(2, new Maximize("Prob. Inertia Constraint"));
+		solution.setObjective(3, new Maximize("Reliability"));
+		
+		solution.setConstraint(0, new GreaterThanOrEqual("Reliability", 0.85));
 		
 		return solution;
 	}

@@ -21,7 +21,10 @@ import java.io.File;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.Solution;
-import org.moeaframework.core.variable.EncodingUtils;
+import org.moeaframework.core.constraint.Equal;
+import org.moeaframework.core.objective.Maximize;
+import org.moeaframework.core.objective.Minimize;
+import org.moeaframework.core.variable.BinaryIntegerVariable;
 import org.moeaframework.problem.ExternalProblem;
 
 /**
@@ -105,7 +108,7 @@ public class WDS extends ExternalProblem {
 
 	@Override
 	public String getName() {
-		return instance.getName();
+		return "WDS(" + instance.getName() + ")";
 	}
 
 	@Override
@@ -128,8 +131,13 @@ public class WDS extends ExternalProblem {
 		Solution solution = new Solution(instance.getNumberOfVariables(), 2, 1);
 		
 		for (int i = 0; i < instance.getNumberOfVariables(); i++) {
-			solution.setVariable(i, EncodingUtils.newInt(0, instance.getNumberOfOptions()-1));
+			solution.setVariable(i, new BinaryIntegerVariable(0, instance.getNumberOfOptions()-1));
 		}
+		
+		solution.setObjective(0, new Minimize("TotalCost ($ MM)"));
+		solution.setObjective(1, new Maximize("Resilience"));
+		
+		solution.setConstraint(0, new Equal(0.0));
 		
 		return solution;
 	}

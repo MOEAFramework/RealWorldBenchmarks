@@ -36,6 +36,26 @@ public class BenchmarkProvider extends RegisteredProblemProvider {
 		for (WDSInstance variant : WDSInstance.values()) {
 			register("WDS(" + variant.getName() + ")", () -> new WDS(variant), "./pf/WDS/" + variant.getName() + ".reference");
 		}
+		
+		// register epsilons
+		registerEpsilons("GAA", GAA.EPSILON);
+		registerEpsilons("ElectricMotor", ElectricMotor.EPSILON);
+		registerEpsilons("HBV", HBV.EPSILON);
+		registerEpsilons("LRGV", LRGV.EPSILON);
+		registerEpsilons("LakeProblem", LakeProblem.EPSILON);
+		
+		// register with diagnostic tool
+		registerDiagnosticToolProblem("GAA");
+		registerDiagnosticToolProblem("CarSideImpact");
+		registerDiagnosticToolProblem("ElectricMotor");
+		registerDiagnosticToolProblem("HBV");
+		registerDiagnosticToolProblem("LRGV");
+		registerDiagnosticToolProblem("LakeProblem");
+		registerDiagnosticToolProblem("Radar");
+		
+		for (WDSInstance variant : WDSInstance.values()) {
+			registerDiagnosticToolProblem("WDS(" + variant.getName() + ")");
+		}
 	}
 	
 }

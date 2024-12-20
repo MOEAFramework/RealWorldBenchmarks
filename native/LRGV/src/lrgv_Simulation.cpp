@@ -1852,8 +1852,8 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 				}
 				else if (params.obj_names[obj_it] == "critrel")
 				{
-					//9/26/2012: add -1.0 for minimization
-					objs[obj_it] = (-1.0)*min_CReliability / params.obj_scalingfactors[obj_it];
+					// maximized
+					objs[obj_it] = min_CReliability / params.obj_scalingfactors[obj_it];
 				}
 				else if (params.obj_names[obj_it] == "drop")
 				{
@@ -1861,8 +1861,8 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 				}
 				else if (params.obj_names[obj_it] == "rel")
 				{
-					//9/26/2012: add -1.0 for minimization
-					objs[obj_it] = (-1.0)*min_Reliability / params.obj_scalingfactors[obj_it];
+					// maximized
+					objs[obj_it] = min_Reliability / params.obj_scalingfactors[obj_it];
 				}
 				else if (params.obj_names[obj_it] == "cvar")
 				{
@@ -2271,9 +2271,8 @@ void Simulation::calc_LRGV(double* vars, double* objs, double* consts, string ca
 				{
 					//cout << "rel, crel, and drrel are: " << endl;
 					//cout << g.fullperiod_rel << "," << g.fullperiod_crel << "," << (12.0 - double(g.total_periods))/12.0 << "." << endl;									
-					//9/26/2012: add -1.0 for minimization
-					objs[obj_it] =
-						(-1.0)*(g.fullperiod_rel + g.fullperiod_crel + (12.0 - double(g.total_periods))/12.0)/3.0;
+					// maximized
+					objs[obj_it] = (g.fullperiod_rel + g.fullperiod_crel + (12.0 - double(g.total_periods))/12.0)/3.0;
 				}
 			}
 		}

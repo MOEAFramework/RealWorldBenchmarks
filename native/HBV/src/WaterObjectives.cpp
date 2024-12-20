@@ -213,8 +213,8 @@ void calculateObjectives(Objectives *objs, double *Qs,double *Qo, double *precip
     objs->roce[member]  = fabs(roce_tmp);
     objs->sfdce[member] = fabs(sfdce_tmp);
 
-    //Calculate NSE (defined as 1.0 - Traditional NSE so that it now becomes a minimization objective)
-    objs->nse[member] = 1.0-(1.0-sumDiffQsSqr/sumDiffQoMeanSq);
+    //Calculate NSE
+    objs->nse[member] = 1.0-sumDiffQsSqr/sumDiffQoMeanSq;
 
     //Clean up
     delete[] sortedQs;

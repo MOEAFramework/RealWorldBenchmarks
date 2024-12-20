@@ -18,7 +18,8 @@
 package org.moeaframework.benchmarks;
 
 import org.moeaframework.core.Solution;
-import org.moeaframework.core.variable.EncodingUtils;
+import org.moeaframework.core.constraint.LessThanOrEqual;
+import org.moeaframework.core.objective.Minimize;
 import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.AbstractProblem;
 
@@ -44,13 +45,13 @@ public class CarSideImpact extends AbstractProblem {
 
 	@Override
 	public void evaluate(Solution solution) {
-		double x1 = EncodingUtils.getReal(solution.getVariable(0));
-		double x2 = EncodingUtils.getReal(solution.getVariable(1));
-		double x3 = EncodingUtils.getReal(solution.getVariable(2));
-		double x4 = EncodingUtils.getReal(solution.getVariable(3));
-		double x5 = EncodingUtils.getReal(solution.getVariable(4));
-		double x6 = EncodingUtils.getReal(solution.getVariable(5));
-		double x7 = EncodingUtils.getReal(solution.getVariable(6));
+		double x1 = RealVariable.getReal(solution.getVariable(0));
+		double x2 = RealVariable.getReal(solution.getVariable(1));
+		double x3 = RealVariable.getReal(solution.getVariable(2));
+		double x4 = RealVariable.getReal(solution.getVariable(3));
+		double x5 = RealVariable.getReal(solution.getVariable(4));
+		double x6 = RealVariable.getReal(solution.getVariable(5));
+		double x7 = RealVariable.getReal(solution.getVariable(6));
 
 		double F = 4.72 - 0.5*x4 - 0.19*x2*x3;
 		double Vmbp = 10.58 - 0.674*x1*x2 - 0.67275*x2;
@@ -70,24 +71,25 @@ public class CarSideImpact extends AbstractProblem {
 		double g9 = Vmbp;
 		double g10 = Vfd;
 		
-		solution.setObjective(0, f1);
-		solution.setObjective(1, f2);
-		solution.setObjective(2, f3);
-		solution.setConstraint(0, g1 <= 1.0 ? 0.0 : g1-1.0);
-		solution.setConstraint(1, g2 <= 0.32 ? 0.0 : g2-0.32);
-		solution.setConstraint(2, g3 <= 0.32 ? 0.0 : g3-0.32);
-		solution.setConstraint(3, g4 <= 0.32 ? 0.0 : g4-0.32);
-		solution.setConstraint(4, g5 <= 32.0 ? 0.0 : g5-32.0);
-		solution.setConstraint(5, g6 <= 32.0 ? 0.0 : g6-32.0);
-		solution.setConstraint(6, g7 <= 32.0 ? 0.0 : g7-32.0);
-		solution.setConstraint(7, g8 <= 4.0 ? 0.0 : g8-4.0);
-		solution.setConstraint(8, g9 <= 9.9 ? 0.0 : g9-9.9);
-		solution.setConstraint(9, g10 <= 15.7 ? 0.0 : g10-15.7);
+		solution.setObjectiveValue(0, f1);
+		solution.setObjectiveValue(1, f2);
+		solution.setObjectiveValue(2, f3);
+		solution.setConstraintValue(0, g1);
+		solution.setConstraintValue(1, g2);
+		solution.setConstraintValue(2, g3);
+		solution.setConstraintValue(3, g4);
+		solution.setConstraintValue(4, g5);
+		solution.setConstraintValue(5, g6);
+		solution.setConstraintValue(6, g7);
+		solution.setConstraintValue(7, g8);
+		solution.setConstraintValue(8, g9);
+		solution.setConstraintValue(9, g10);
 	}
 
 	@Override
 	public Solution newSolution() {
 		Solution solution = new Solution(7, 3, 10);
+		
 		solution.setVariable(0, new RealVariable(0.5, 1.5));
 		solution.setVariable(1, new RealVariable(0.45, 1.35));
 		solution.setVariable(2, new RealVariable(0.5, 1.5));
@@ -95,6 +97,22 @@ public class CarSideImpact extends AbstractProblem {
 		solution.setVariable(4, new RealVariable(0.875, 2.625));
 		solution.setVariable(5, new RealVariable(0.4, 1.2));
 		solution.setVariable(6, new RealVariable(0.4, 1.2));
+		
+		solution.setObjective(0, new Minimize());
+		solution.setObjective(1, new Minimize());
+		solution.setObjective(2, new Minimize());
+		
+		solution.setConstraint(0, LessThanOrEqual.to(1.0));
+		solution.setConstraint(1, LessThanOrEqual.to(0.32));
+		solution.setConstraint(2, LessThanOrEqual.to(0.32));
+		solution.setConstraint(3, LessThanOrEqual.to(0.32));
+		solution.setConstraint(4, LessThanOrEqual.to(32.0));
+		solution.setConstraint(5, LessThanOrEqual.to(32.0));
+		solution.setConstraint(6, LessThanOrEqual.to(32.0));
+		solution.setConstraint(7, LessThanOrEqual.to(4.0));
+		solution.setConstraint(8, LessThanOrEqual.to(9.9));
+		solution.setConstraint(9, LessThanOrEqual.to(15.7));
+		
 		return solution;
 	}
 
