@@ -17,38 +17,68 @@
  */
 package org.moeaframework.benchmarks;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Assume;
-import org.junit.Test;
+import org.junit.Ignore;
 import org.moeaframework.algorithm.NSGAII;
+import org.moeaframework.core.Settings;
+import org.moeaframework.core.Solution;
 import org.moeaframework.core.population.NondominatedPopulation;
 import org.moeaframework.core.spi.ProblemFactory;
+import org.moeaframework.core.variable.RealVariable;
 import org.moeaframework.problem.Problem;
 
-/**
- * Tests to ensure each benchmark problem can be instantiated with the MOEA Framework and reference sets exist.
- */
-public class BenchmarkProviderTest {
+@Ignore("abstract test class")
+public class AbstractProblemTest {
 	
-	protected void test(String problemName) {
+	protected void testSolve(String problemName) {
 		try (Problem problem = ProblemFactory.getInstance().getProblem(problemName)) {
-			Assert.assertNotNull(problem);
-			Assert.assertEquals(problemName, problem.getName());
+			Assert.assertNotNull("Problem not defined", problem);
+			Assert.assertEquals("Problem name must match", problemName, problem.getName());
 			
 			NSGAII algorithm = new NSGAII(problem);
 			algorithm.run(1000);
 			
 			NondominatedPopulation result = algorithm.getResult();
 			
-			Assert.assertNotNull(result);
-			Assert.assertFalse(result.isEmpty());
+			Assert.assertNotNull("Expected non-null result", result);
+			Assert.assertFalse("Expected non-empty result", result.isEmpty());
 		}
 	}
 	
 	protected void testReferenceSet(String problemName) {
-		Assert.assertNotNull("Missing reference set", ProblemFactory.getInstance().getReferenceSet(problemName));
+		NondominatedPopulation referenceSet = ProblemFactory.getInstance().getReferenceSet(problemName);
+		Assert.assertNotNull("Expected reference set", referenceSet);
+		Assert.assertFalse("Expected non-empty reference set", referenceSet.isEmpty());
+	}
+	
+	protected void testSolution(String problemName, double[] variables, double[] expectedObjectives, double[] expectedConstraints, boolean isFeasible) {
+		try (Problem problem = ProblemFactory.getInstance().getProblem(problemName)) {
+			Solution solution = problem.newSolution();
+			RealVariable.setReal(solution, variables);
+			
+			problem.evaluate(solution);
+			
+			try {
+				Assert.assertArrayEquals("Objectives do not match", expectedObjectives, solution.getObjectiveValues(), Settings.EPS);
+			} catch (AssertionError e) {
+				System.out.println("Actual Objectives: " + Arrays.toString(solution.getObjectiveValues()));
+				throw e;
+			}
+			
+			try {
+			Assert.assertArrayEquals("Constraints do not match", expectedConstraints, solution.getConstraintValues(), Settings.EPS);
+			} catch (AssertionError e) {
+				System.out.println("Actual Constraints: " + Arrays.toString(solution.getConstraintValues()));
+				throw e;
+			}
+			
+			Assert.assertEquals("Feasibility does not match", isFeasible, solution.isFeasible());
+			
+		}
 	}
 	
 	protected void requiresMatlab() {
@@ -68,53 +98,6 @@ public class BenchmarkProviderTest {
 		} catch (Exception e) {
 			Assume.assumeNoException("Caught exception when invoking process", e);
 		}
-	}
-	
-	@Test
-	public void testCarSideImpact() {
-		test("CarSideImpact");
-		testReferenceSet("CarSideImpact");
-	}
-	
-	@Test
-	public void testElectricMotor() {
-		test("ElectricMotor");
-		testReferenceSet("ElectricMotor");
-	}
-	
-	@Test
-	public void testGAA() {
-		test("GAA");
-		testReferenceSet("GAA");
-	}
-	
-	@Test
-	public void testHBV() {
-		test("HBV");
-		testReferenceSet("HBV");
-	}
-	
-	@Test
-	public void testLakeProblem() {
-		test("LakeProblem");
-		testReferenceSet("LakeProblem");
-	}
-	
-	@Test
-	public void testLRGV() {
-		test("LRGV");
-	}
-	
-	@Test
-	public void testRadar() {
-		requiresMatlab();
-		test("Radar");
-	}
-	
-	@Test
-	public void testWDS() {
-		test("WDS(GOY)");
-		testReferenceSet("WDS(GOY)");
 	}
 
 }
