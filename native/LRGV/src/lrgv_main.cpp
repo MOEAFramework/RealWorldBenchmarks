@@ -248,9 +248,6 @@ int main(int argc, char **argv)
 		{
 			MOEA_Read_doubles(nvars,vars); //first read the solution
 			
-			// TODO: Remove
-			MOEA_Debug("Vars: %lf %lf %lf %lf %lf %lf %lf %lf\n", vars[0], vars[1], vars[2], vars[3], vars[4], vars[5], vars[6], vars[7]);
-			
 			//If the mode is 'combined' you need to run the drought scenario.
 			//Otherwise, you can skip it. NOTE we should probably check that if
 			//drtranscost is listed as an objective, or one of the other 'dr'
@@ -269,10 +266,6 @@ int main(int argc, char **argv)
 			{
 				calc_LRGV(vars, objs, consts, local_calcparam); 
 			}
-			
-			// TODO: Remove
-			MOEA_Debug("Objs: %lf %lf %lf %lf %lf %lf\n", objs[0], objs[1], objs[2], objs[3], objs[4], objs[5]);
-			MOEA_Debug("Constrs: %lf %lf %lf %lf %lf\n", consts[0], consts[1], consts[2], consts[3]);
 			
 			MOEA_Write(objs, consts);
 			//cerr << "Just calculated" << endl;

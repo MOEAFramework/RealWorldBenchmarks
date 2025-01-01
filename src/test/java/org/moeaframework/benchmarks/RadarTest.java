@@ -18,10 +18,8 @@
 package org.moeaframework.benchmarks;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class RadarTest extends AbstractProblemTest {
 	
 	@Before

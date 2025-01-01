@@ -17,10 +17,8 @@
  */
 package org.moeaframework.benchmarks;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class CarSideImpactTest extends AbstractProblemTest {
 
 	@Test

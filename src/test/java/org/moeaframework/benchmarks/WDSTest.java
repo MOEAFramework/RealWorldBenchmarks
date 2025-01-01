@@ -17,10 +17,8 @@
  */
 package org.moeaframework.benchmarks;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class WDSTest extends AbstractProblemTest {
 
 	@Test
@@ -50,27 +48,5 @@ public class WDSTest extends AbstractProblemTest {
 				new double[] { 0.0 },
 				true);
 	}
-	
-// Windows:
-//	Starting process '.\native\WDS\bin\GOY.exe'
-//	<< 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-//	>> 0.17467288672924042 1.045642614364624 -1909.0999755859375
-//	Actual Objectives: [0.17467288672924042, 1.045642614364624]
-//	Waiting for process to exit...
-//	Process exited with code 0
-//	Starting process '.\native\WDS\bin\GOY.exe'
-//	<< 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-//	>> 0.32972565293312073 1.045642614364624 -1909.0999755859375
-//	Actual Objectives: [0.3297256529331207, 1.045642614364624]
-
-// Linux:
-//	Starting process './GOY'
-//	<< 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-//	>> 0.17467288672924042 -6.1195673942565918 -2390.6025390625
-//	Waiting for process to exit...
-//	Process exited with code 0
-//	Starting process './GOY'
-//	<< 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-//	>> 0.32972565293312073 0.71250671148300171 -0
 	
 }
