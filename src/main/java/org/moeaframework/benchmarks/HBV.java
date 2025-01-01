@@ -60,20 +60,20 @@ public class HBV extends ExternalProblem {
 	public Solution newSolution() {
 		Solution solution = new Solution(14, 4, 0);
 		
-		solution.setVariable(0, new RealVariable(0.0, 100.0));    //L (mm) 
-		solution.setVariable(1, new RealVariable(0.5, 20.0));     //K0 (d)
-		solution.setVariable(2, new RealVariable(1.0, 100.0));    //K1 (d)
-		solution.setVariable(3, new RealVariable(10.0, 20000.0)); //K2 (d)
-		solution.setVariable(4, new RealVariable(0.0, 100.0));    //Perc (mm/d)
-		solution.setVariable(5, new RealVariable(0.3, 1.0));      //LP (-)
-		solution.setVariable(6, new RealVariable(0.0, 2000.0));   //Fcap (mm)
-		solution.setVariable(7, new RealVariable(0.0, 7.0));      //B (-)
-		solution.setVariable(8, new RealVariable(24.0, 120.0));   //MaxBas (d)
-		solution.setVariable(9, new RealVariable(-3.0, 3.0));     //TT (C)
-		solution.setVariable(10, new RealVariable(0.0, 20.0));    //DDF (mm/C*d)
-		solution.setVariable(11, new RealVariable(0.0, 1.0));     //CFR (-)
-		solution.setVariable(12, new RealVariable(0.0, 0.8));     //CWH (-)
-		solution.setVariable(13, new RealVariable(0.0, 7.0));     //TTI (C)
+		solution.setVariable(0, new RealVariable("L (mm)", 0.0, 100.0));
+		solution.setVariable(1, new RealVariable("K0 (d)", 0.5, 20.0));
+		solution.setVariable(2, new RealVariable("K1 (d)", 1.0, 100.0));
+		solution.setVariable(3, new RealVariable("K2 (d)", 10.0, 20000.0));
+		solution.setVariable(4, new RealVariable("Perc (mm/d)", 0.0, 100.0));
+		solution.setVariable(5, new RealVariable("LP", 0.3, 1.0));
+		solution.setVariable(6, new RealVariable("Fcap (mm)", 0.0, 2000.0));
+		solution.setVariable(7, new RealVariable("B", 0.0, 7.0));
+		solution.setVariable(8, new RealVariable("MaxBas (d)", 24.0, 120.0));
+		solution.setVariable(9, new RealVariable("TT (C)", -3.0, 3.0));
+		solution.setVariable(10, new RealVariable("DDF (mm/C*d)", 0.0, 20.0));
+		solution.setVariable(11, new RealVariable("CFR", 0.0, 1.0));
+		solution.setVariable(12, new RealVariable("CWH", 0.0, 0.8));
+		solution.setVariable(13, new RealVariable("TTI (C)", 0.0, 7.0));
 		
 		solution.setObjective(0, new Maximize("nse"));
 		solution.setObjective(1, new Minimize("trmse"));

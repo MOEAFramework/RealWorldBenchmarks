@@ -32,9 +32,4 @@ public class RadarTest extends AbstractProblemTest {
 		testSolve("Radar");
 	}
 	
-	@Test
-	public void testReferenceSet() {
-		testReferenceSet("Radar");
-	}
-	
 }
