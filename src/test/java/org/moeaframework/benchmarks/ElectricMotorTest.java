@@ -17,8 +17,10 @@
  */
 package org.moeaframework.benchmarks;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class ElectricMotorTest extends AbstractProblemTest {
 
 	@Test

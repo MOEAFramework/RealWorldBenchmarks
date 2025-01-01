@@ -72,7 +72,7 @@ public class AbstractProblemTest {
 			}
 			
 			try {
-			Assert.assertArrayEquals("Constraints do not match", expectedConstraints, solution.getConstraintValues(), EPS);
+				Assert.assertArrayEquals("Constraints do not match", expectedConstraints, solution.getConstraintValues(), EPS);
 			} catch (AssertionError e) {
 				System.out.println("Actual Constraints: " + Arrays.toString(solution.getConstraintValues()));
 				throw e;

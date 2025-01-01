@@ -94,7 +94,8 @@ public class WDS extends ExternalProblem {
 		public Builder getBuilder() {
 			return new Builder()
 					.withCommand(SystemUtils.IS_OS_WINDOWS ? getName() + ".exe" : getName())
-					.withWorkingDirectory(new File("./native/WDS/bin/"));
+					.withWorkingDirectory(new File("./native/WDS/bin/"))
+					.withDebugging();
 		}
 
 	}

@@ -35,7 +35,8 @@ public class LRGV extends ExternalProblem {
 	public LRGV() {
 		super(new Builder()
 				.withCommand(SystemUtils.IS_OS_WINDOWS ? "lrgv.exe" : "lrgv", "-m", "std-io", "-b", "AllDecAll", "-c", "ten-year")
-				.withWorkingDirectory(new File("./native/LRGV/bin/")));
+				.withWorkingDirectory(new File("./native/LRGV/bin/"))
+				.withDebugging());
 	}
 
 	@Override
