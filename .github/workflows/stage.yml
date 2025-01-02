@@ -25,18 +25,7 @@ on:
         type: boolean
 
 jobs:
-  build:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build Windows native files
-        run: make -C native
-      - uses: actions/upload-artifact@v4
-        with:
-          name: native-windows
-          path: native/
   stage:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Setup release
@@ -61,24 +50,13 @@ jobs:
           ossrh-username: ${{ secrets.OSSRH_USERNAME }}
           ossrh-password: ${{ secrets.OSSRH_TOKEN }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Remove native/ folder 
-        run: rm -rf native/
-      - name: Download Windows native files
-        uses: actions/download-artifact@v4
-        with:
-          name: native-windows
-          path: native/
-      - name: Zip Windows native files
-        run: zip -r native-windows.zip native
       - name: Stage GitHub release
         if: ${{ inputs.publish-github }}
         uses: MOEAFramework/.github/actions/publish-github@main
         with:
-          extra-files: native-windows.zip
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Trigger integration tests
         if: ${{ inputs.trigger-tests }}
         uses: MOEAFramework/.github/actions/integration-test@main
         with:
           github-token: ${{ secrets.PAT }}
-          

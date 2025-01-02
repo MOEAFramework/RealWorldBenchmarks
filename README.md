@@ -1,8 +1,7 @@
 # Real World Benchmarks
 
-This repository contains a collection of multi- and many-objective optimization problems
-with real-world applications for benchmarking multiobjective evolutionary algorithms (MOEAs).
-Please cite the following if using this code:
+This repository contains a collection of multi- and many-objective optimization problems with real-world applications
+for benchmarking multiobjective evolutionary algorithms (MOEAs).  Please cite the following if using this code:
 
 > Zatarain Salazar, J., Hadka, D., Reed, P., Seada, H., & Deb, K. (2024). Diagnostic benchmarking of many-objective evolutionary algorithms for real-world problems. Engineering Optimization, 1–22. https://doi.org/10.1080/0305215X.2024.2381818
 
@@ -13,74 +12,66 @@ Please cite the following if using this code:
 These codes are intended for use with the MOEA Framework.  Follow the steps below to setup these real-world
 benchmark problems:
 
-#### Prerequisites
+### Requirements
 
-Ensure your system has the following software installed:
+These codes are intended to run on a Unix-like system (e.g., Ubuntu).  In addition, please ensure the following
+dependencies are installed:
+
 1. Java 17+
 2. Maven
 3. GNU Make
 4. GNU C/C++ compilers (`gcc` and `g++`)
 
-#### Setup MOEA Framework
+### Setup with Eclipse
 
-Download the latest MOEA Framework binaries or source code from http://moeaframework.org/ and
-extract the archive to a folder on your computer.  We will refer to this as folder as `${MOEAFRAMEWORK_ROOT}`
-in the following steps.
+First, clone this repository:
 
-#### Install Real-World Benchmark Library
-
-Download the latest version of the real-world benchmarks JAR file from the
-[releases page](https://github.com/MOEAFramework/MOEAFramework/releases) and place it in the
-`${MOEAFRAMEWORK_ROOT}/lib` folder.
-
-#### Compile Benchmark Problems
-
-Several of the benchmark problems must be compiled before use.  If using Windows, we include compiled
-executables for each release version (see `native-windows.zip`).  Otherwise, to compile the executables, run: 
-
-1. Clone this repository - `git clone https://github.com/MOEAFramework/RealWorldBenchmarks.git`
-2. Run `make -C native`
-3. Copy or link the `native/` folder into your MOEA Framework directory using either:
-   * Option 1 - Copy the entire directory with `cp -R native/ ${MOEAFRAMEWORK_ROOT}/native`
-   * Option 2 - Create a symbolic link with `ln -s $(realpath -s native/) ${MOEAFRAMEWORK_ROOT}/native`
-
-## Maven
-
-Alternatively, if you want to include these benchmark problems in a Maven project, add the following
-dependency to your `pom.xml`.  Please note that you will still need to compile the native executables
-separately.
-
-```xml
-<dependency>
-    <groupId>org.moeaframework</groupId>
-    <artifactId>real-world-benchmarks</artifactId>
-    <version>1.1.0</version>
-</dependency>
+```bash
+git clone https://github.com/MOEAFramework/RealWorldBenchmarks.git
 ```
 
-## Usage
+We recommend opening this project in an IDE, such as Eclipse or IntelliJ.  Next, we must compile the benchmark
+problems, as several are written in C / C++.  Open a new terminal window and run the following from the
+`RealWorldBenchmarks` folder:
 
-To run one of these real-world benchmark problems, you can then either directly construct the problem:
+```bash
+make -C native
+```
+
+Finally, locate and run `Example.java` (in `src/main/java`).  In Eclipse, you would right-click on `Example.java` and
+select `Run As > Java Application`.  If everything is setup correctly, you will see output showing the Pareto front.
+
+### From Command Line
+
+Alternatively, we can also build and run the example from the command line using Maven.  First, we can package and test
+this project with:
+
+```bash
+mvn package
+```
+
+This will verify all benchmark problems are built and running correctly.  Then, run the example with:
+
+```bash
+mvn compile exec:java -Dexec.mainClass="org.moeaframework.benchmarks.Example"
+```
+
+## Example
+
+The following example, from `Example.java`, demonstrates solving the General Aviation Aircraft (GAA) problem using the
+NSGA-II algorithm, displaying the decision variables, objectives, and constraint values comprising the Pareto
+approximation set:
+
+<!-- java:src/main/java/org/moeaframework/benchmarks/Example.java [9:15] -->
 
 ```java
-
-Problem problem = new GAA();
+GAA problem = new GAA();
 
 NSGAII algorithm = new NSGAII(problem);
 algorithm.run(10000);
 
 NondominatedPopulation result = algorithm.getResult();
-```
-
-or reference it by name if using the `Executor`:
-
-```java
-
-NondominatedPopulation result = new Executor()
-   .withProblem("GAA")
-   .withAlgorithm("NSGAII")
-   .withMaxEvaluations(10000)
-   .run();
+result.display();
 ```
 
 ## Available Benchmarks
@@ -97,8 +88,8 @@ The following benchmark problems are available:
 | Lake Pollution Control Policy               | `LakeProblem`   | 100       | 4          | 1           | [9]-[11]   |
 | Electric Motor Product Family               | `ElectricMotor` | 80        | 20         | 60          | [12]       |
 
-In addition, this repository contains twelve bi-objective water distribution system (WDS) design problems [13]
-ranging from 8 to 567 decision variables:
+In addition, this repository contains twelve bi-objective water distribution system (WDS) design problems [13] ranging
+from `8` to `567` decision variables:
 
 | Problem                          | Problem Name | Variables | Objectives | Constraints |
 | -------------------------------- | ------------ | :-------: | :--------: | :---------: |
@@ -115,14 +106,13 @@ ranging from 8 to 567 decision variables:
 | Belerma Irrigation Network (BIN) | `WDS(BIN)`   | 454       | 2          | 1           |
 | Exeter Network (EXN)             | `WDS(EXN)`   | 567       | 2          | 1           |
 
-Additional information for specific problems can be found in the cited papers as well as
-the README files and other documentation for each problem.
+Additional information for specific problems can be found in the cited papers as well as the `README` files and other
+documentation for each problem.
 
 ## License
 
-Most of the software contained in this repository is copyright by the respective authors
-who developed each benchmark problem.  Please cite these original works if using any of the
-benchmark problems.
+Most of the software contained in this repository is copyright by the respective authors who developed each benchmark
+problem.  Please cite these original works if using any of the benchmark problems.
 
 ## References
 
