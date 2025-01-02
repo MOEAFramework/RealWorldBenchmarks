@@ -2,7 +2,7 @@ CC = gcc
 SRC_DIR = src
 SHARED_DIR = ../shared
 SOURCE = $(SRC_DIR)/main.c $(SRC_DIR)/models.c $(SHARED_DIR)/moeaframework.c
-CFLAGS = -I$(SRC_DIR)/epanet2 -I$(SHARED_DIR) -Lbin -lm -lepanet2 -Wl,-R,\.
+CFLAGS = -I$(SRC_DIR)/epanet2 -I$(SHARED_DIR) -Lbin -lm -lepanet2 -Wl,-R,\. -std=c11
 LIBS =
 
 ifeq ($(OS),Windows_NT)

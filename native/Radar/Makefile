@@ -1,6 +1,6 @@
 CC = gcc
 SHARED_DIR = ../shared
-CFLAGS = -Wall -O3 -fPIC
+CFLAGS = -Wall -O3 -fPIC -std=c11
 LIBS =
 
 ifeq ($(OS),Windows_NT)

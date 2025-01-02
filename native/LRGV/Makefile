@@ -2,7 +2,7 @@ CC = g++
 TARGET = lrgv
 SRC_DIR = src
 SHARED_DIR = ../shared
-CFLAGS = -O3 -I$(SRC_DIR) -I$(SHARED_DIR)
+CFLAGS = -O3 -I$(SRC_DIR) -I$(SHARED_DIR) -std=c++11
 LIBS =
 
 ifeq ($(OS),Windows_NT)
