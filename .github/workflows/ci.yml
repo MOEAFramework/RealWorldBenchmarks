@@ -17,7 +17,7 @@ jobs:
         uses: MOEAFramework/.github/actions/setup-build@main
         with:
           java-version: ${{ matrix.java }}
-		  setup-matlab: true
+          setup-matlab: true
       - name: Setup Radar Waveform code
         run: |
           cd native/Radar/bin
@@ -37,7 +37,7 @@ jobs:
       - name: Test solve
         run: |
           mvn compile exec:java -Dexec.mainClass="org.moeaframework.analysis.tools.Solve" \
-		    -Dexec.args="--algorithm NSGAII --problem LRGV --numberOfEvaluations 10000 --output LRGV_Result.txt"
+            -Dexec.args="--algorithm NSGAII --problem LRGV --numberOfEvaluations 10000 --output LRGV_Result.txt"
           cat LRGV_Result.txt
       - name: Validate README
         run: |
