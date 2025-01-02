@@ -9,9 +9,6 @@ for benchmarking multiobjective evolutionary algorithms (MOEAs).  Please cite th
 
 ## Installation
 
-These codes are intended for use with the MOEA Framework.  Follow the steps below to setup these real-world
-benchmark problems:
-
 ### Requirements
 
 These codes are intended to run on a Unix-like system (e.g., Ubuntu).  In addition, please ensure the following
@@ -24,15 +21,15 @@ dependencies are installed:
 
 ### Setup with Eclipse
 
-First, clone this repository:
+We recommend using a Java IDE, such as Eclipse or IntelliJ, when working with this project.  First, clone this
+repository:
 
 ```bash
 git clone https://github.com/MOEAFramework/RealWorldBenchmarks.git
 ```
 
-We recommend opening this project in an IDE, such as Eclipse or IntelliJ.  Next, we must compile the benchmark
-problems, as several are written in C / C++.  Open a new terminal window and run the following from the
-`RealWorldBenchmarks` folder:
+Next, we must compile the benchmark problems, as several are written in C / C++.  Open a new terminal window and run
+the following from the `RealWorldBenchmarks` folder:
 
 ```bash
 make -C native
